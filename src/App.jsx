@@ -267,18 +267,16 @@ const HowItWorksSection = () => {
 
   return (
     <SectionShell>
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-        <div>
-          <h2 className="text-4xl font-black leading-none text-white sm:text-6xl">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-6 items-start">
+        <div className="lg:col-span-6 space-y-12">
+          <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold max-w-xl">
             <RevealLine>Three Steps.</RevealLine>
-            <RevealLine delay={0.08} className="text-zinc-300">
-              Zero Stress.
-            </RevealLine>
-          </h2>
+            <RevealLine delay={0.08}>Zero Stress.</RevealLine>
+          </h1>
           <FadeIn delay={0.18}>
-            <div className="mt-8 border-l border-white/20 pl-6">
-              <h3 className="text-2xl font-black text-white">Why Would We Build It For Free?</h3>
-              <p className="mt-4 leading-7 text-zinc-300">
+            <div className="space-y-6 border border-outline-subtle/10 bg-surface-low/50 p-12 backdrop-blur-sm">
+              <h3 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">Why Would We Build It For Free?</h3>
+              <p className="font-body text-[16px] leading-[24px] text-on-surface-dim opacity-90">
                 Honest answer: we don't make money upfront. We build your site at no charge and only start earning after
                 you've been with us for about two years. That means we're motivated to build something you actually love
                 and keep you around — not take your money and disappear. No contract. No gotcha. Just a handshake deal
@@ -287,33 +285,50 @@ const HowItWorksSection = () => {
             </div>
           </FadeIn>
           <FadeIn delay={0.24}>
-            <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden border border-white/10 bg-white/10 text-sm">
-              {details.map((item) => (
-                <div key={item} className="bg-black p-4 font-semibold text-zinc-300">
-                  {item}
-                </div>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 border border-outline-subtle/10 overflow-hidden">
+              {details.map((item, index) => {
+                const isTopRow = index < 2;
+                const isLeftCol = index % 2 === 0;
+                return (
+                  <div
+                    key={item}
+                    className={`p-6 flex items-center gap-4 border-outline-subtle/10 ${
+                      isTopRow ? 'border-b md:border-b-0' : ''
+                    } ${isLeftCol ? 'md:border-r' : ''}`}
+                  >
+                    <Check className="h-5 w-5 text-primary flex-shrink-0" />
+                    <span className="font-label text-xs font-medium uppercase tracking-wider text-on-surface-dim">{item}</span>
+                  </div>
+                );
+              })}
             </div>
           </FadeIn>
         </div>
-        <div className="grid gap-4">
-          {steps.map(([title, text], index) => (
-            <FadeIn key={title} delay={index * 0.1}>
-              <div className="grid gap-4 border border-white/10 bg-white/[0.03] p-5 sm:grid-cols-[4rem_1fr]">
-                <span className="grid h-14 w-14 place-items-center border border-white/20 bg-white text-xl font-black text-black">
-                  0{index + 1}
-                </span>
-                <div>
-                  <h3 className="text-2xl font-black text-white">{title}</h3>
-                  <p className="mt-2 text-zinc-300">{text}</p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
+        <div className="lg:col-span-6 lg:pl-12 space-y-12">
+          <div className="relative">
+            <div className="absolute left-12 top-0 bottom-0 w-px bg-gradient-to-b from-primary/30 via-primary/10 to-transparent" />
+            <div className="space-y-16">
+              {steps.map(([title, text], index) => (
+                <FadeIn key={title} delay={index * 0.1}>
+                  <div className="relative flex gap-12 group">
+                    <div className={`flex-shrink-0 w-24 h-24 ${index === 2 ? 'bg-primary' : 'bg-surface-high'} border border-outline-subtle/10 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-105`}>
+                      <span className={`font-headline text-[48px] leading-[56px] tracking-[-0.02em] font-extrabold ${index === 2 ? 'text-surface' : 'text-primary'}`}>
+                        0{index + 1}
+                      </span>
+                    </div>
+                    <div className="flex-grow pt-4">
+                      <h4 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary mb-2">{title}</h4>
+                      <p className="font-body text-[18px] leading-[28px] text-on-surface-dim">{text}</p>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
           <FadeIn delay={0.34}>
-            <div className="border-y border-white/10 py-5">
-              <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">What happens after launch</p>
-              <p className="mt-3 leading-7 text-zinc-300">
+            <div className="mt-20 pt-12 border-t border-outline-subtle/10">
+              <span className="font-label text-xs font-medium text-primary tracking-[0.2em] uppercase">What happens after launch</span>
+              <p className="mt-6 font-body text-[18px] leading-[28px] text-on-surface opacity-80">
                 You keep one point of contact for fixes, content changes, security, analytics, and hosting. No plugin
                 pile-up. No page builder bills. No guessing who to call.
               </p>

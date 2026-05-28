@@ -191,63 +191,66 @@ const LinkButton = ({ href, children, variant = 'solid', icon: Icon }) => {
 
 const HomeSection = ({ onCta }) => (
   <SectionShell>
-    <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-      <div>
-        <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-300">
-          <Sparkles className="h-4 w-4" /> SiteKeep
-        </p>
-        <h1 className="max-w-5xl text-5xl font-black leading-[0.95] tracking-normal text-white sm:text-6xl lg:text-8xl">
-          <RevealLine>We Build Your</RevealLine>
-          <RevealLine delay={0.08} className="text-zinc-300">
-            Website. For Free.
-          </RevealLine>
+    <div className="relative grid items-center gap-6 lg:grid-cols-12 lg:gap-6">
+      <div className="absolute inset-0 monolith-gradient pointer-events-none" />
+      <div className="relative z-10 lg:col-span-7 flex flex-col justify-center space-y-12 mb-20 lg:mb-0">
+        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-outline-subtle/20 bg-surface-low px-4 py-1.5">
+          <Sparkles className="h-4 w-4 text-primary" />
+          <span className="font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim">SiteKeep</span>
+        </div>
+        <h1 className="max-w-5xl font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
+          <RevealLine>We Build</RevealLine>
+          <RevealLine delay={0.08}>Your Website.</RevealLine>
+          <RevealLine delay={0.16}>For Free.</RevealLine>
         </h1>
         <FadeIn delay={0.18}>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-300 sm:text-xl">
+          <p className="max-w-xl font-body text-[18px] leading-[28px] text-on-surface-dim">
             Seriously. No setup fee, no hidden costs. Just $30/month to keep it running, secure, and updated — forever.
           </p>
         </FadeIn>
         <FadeIn delay={0.28}>
           <button
             onClick={onCta}
-            className="mt-9 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-base font-bold text-black transition hover:bg-zinc-200"
+            className="inline-flex items-center justify-center gap-3 rounded-full bg-primary px-10 py-5 font-headline text-[24px] leading-[32px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface"
           >
             Get My Free Website <ArrowRight className="h-5 w-5" />
           </button>
         </FadeIn>
         <FadeIn delay={0.34}>
-          <dl className="mt-10 grid max-w-2xl grid-cols-3 border-y border-white/10 py-5 text-sm">
+          <dl className="mt-10 grid max-w-2xl grid-cols-3 border-y border-outline-subtle/10 py-5 font-label text-xs font-medium uppercase tracking-[0.05em]">
             {[
               ['Setup', '$0'],
               ['Care plan', '$30/mo'],
               ['Contract', 'None'],
             ].map(([label, value]) => (
-              <div key={label} className="border-r border-white/10 px-4 first:pl-0 last:border-r-0">
-                <dt className="text-zinc-500">{label}</dt>
-                <dd className="mt-1 font-black text-white">{value}</dd>
+              <div key={label} className="border-r border-outline-subtle/10 px-4 first:pl-0 last:border-r-0">
+                <dt className="text-on-surface-dim">{label}</dt>
+                <dd className="mt-1 font-headline text-base font-extrabold normal-case tracking-normal text-primary">{value}</dd>
               </div>
             ))}
           </dl>
         </FadeIn>
       </div>
-      <FadeIn delay={0.25} className="hidden lg:block">
-        <div className="border-y border-white/15 py-8 text-white">
-          <div className="mb-8 flex items-end justify-between">
-            <p className="max-w-xs text-2xl font-black leading-tight">A quieter way to buy a business website.</p>
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-500">Operating model</span>
+      <FadeIn delay={0.25} className="hidden lg:block lg:col-span-5">
+        <div className="w-full rounded-lg border border-outline-subtle/10 bg-surface-low p-8 md:p-12">
+          <div className="mb-8 flex items-baseline justify-between">
+            <h2 className="max-w-xs font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">A quieter way to buy a business website.</h2>
+            <span className="hidden font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim opacity-50 sm:block">Operating model</span>
           </div>
-          <div className="divide-y divide-white/10 border-y border-white/10">
+          <div className="space-y-0">
             {['Free custom build', '$30 monthly care', 'Updates by text', 'No contract'].map((item) => (
-              <div key={item} className="flex items-center justify-between py-5">
-                <span className="font-semibold">{item}</span>
-                <Check className="h-5 w-5 text-zinc-400" />
+              <div key={item} className="group flex items-center justify-between border-b border-outline-subtle/10 py-6 last:border-b-0">
+                <span className="font-body text-[18px] leading-[28px] text-on-surface transition-colors group-hover:text-primary">{item}</span>
+                <Check className="h-5 w-5 text-primary" />
               </div>
             ))}
           </div>
-          <p className="mt-6 text-sm leading-6 text-zinc-400">
-            Built for small teams that want a real website without a big invoice, a platform maze, or a handoff that
-            leaves them alone when something breaks.
-          </p>
+          <div className="mt-10 rounded-lg border border-outline-subtle/5 bg-surface-mid p-6">
+            <p className="font-body text-[16px] leading-[24px] italic text-on-surface-dim">
+              Built for small teams that want a real website without a big invoice, a platform maze, or a handoff that
+              leaves them alone when something breaks.
+            </p>
+          </div>
         </div>
       </FadeIn>
     </div>
@@ -556,46 +559,50 @@ const ProjectModal = ({ project, onClose }) => (
 
 const ContactSection = () => (
   <SectionShell>
-    <div className="mx-auto w-full max-w-4xl">
-      <h2 className="text-4xl font-black leading-none text-white sm:text-6xl lg:text-7xl">
-        Ready for Your Free Website?
-      </h2>
-      <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
-        Tell us a little about your business and we'll take it from there. No commitment, no credit card.
-      </p>
-      <div className="mt-8 grid gap-4 border-y border-white/10 py-5 text-sm md:grid-cols-3">
+    <div className="mx-auto w-full max-w-4xl text-center space-y-12">
+      <div className="space-y-6">
+        <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
+          Ready for Your Free Website?
+        </h1>
+        <p className="mx-auto max-w-2xl font-body text-[18px] leading-[28px] text-on-surface-dim">
+          Tell us a little about your business and we'll take it from there. No commitment, no credit card.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 gap-6 border-y border-outline-subtle/10 py-8 md:grid-cols-3">
         {[
           ['Reply time', 'Usually same day'],
           ['First call', '15 minutes'],
           ['Payment', 'Only after launch'],
-        ].map(([label, value]) => (
-          <div key={label}>
-            <p className="text-zinc-500">{label}</p>
-            <p className="mt-1 font-black text-white">{value}</p>
+        ].map(([label, value], index) => (
+          <div key={label} className={`space-y-1 ${index === 1 ? 'border-y md:border-y-0 md:border-x border-outline-subtle/10 py-6 md:py-0' : ''}`}>
+            <p className="font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim">{label}</p>
+            <p className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">{value}</p>
           </div>
         ))}
       </div>
-      <form
-        className="mt-8 grid gap-4 border border-white/10 bg-white/[0.03] p-4 sm:grid-cols-2"
-        onSubmit={(event) => event.preventDefault()}
-      >
-        {['Your Name', 'Business Name', 'Business Type', 'Phone or Email'].map((label) => (
-          <label key={label} className="grid gap-2 text-sm font-bold text-white">
-            {label}
-            <input
-              className="border border-white/15 bg-black px-4 py-3 text-base text-white outline-none transition placeholder:text-zinc-600 focus:border-white/60"
-              placeholder={label}
-            />
-          </label>
-        ))}
-        <button className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-black text-black transition hover:bg-zinc-200 sm:col-span-2">
-          Let's Build It → <ArrowRight className="h-5 w-5" />
-        </button>
-      </form>
-      <p className="mt-5 text-sm leading-6 text-zinc-500">
-        Send the basics now. We can collect photos, domain details, menu PDFs, service lists, and brand notes after we
-        know the business.
-      </p>
+      <div className="relative overflow-hidden rounded-lg border border-outline-subtle/10 bg-surface-low p-8 text-left md:p-12 group">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/5 blur-3xl transition-transform duration-700 group-hover:scale-110" />
+        <form className="relative z-10 space-y-8" onSubmit={(event) => event.preventDefault()}>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {['Your Name', 'Business Name', 'Business Type', 'Phone or Email'].map((label) => (
+              <div key={label} className="space-y-3">
+                <label className="ml-1 block font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim">{label}</label>
+                <input
+                  className="monolith-input w-full rounded-full border border-outline-subtle/10 bg-surface px-6 py-4 font-body text-[16px] leading-[24px] text-primary placeholder:text-outline/50 transition-all"
+                  placeholder={label}
+                />
+              </div>
+            ))}
+          </div>
+          <button className="flex w-full items-center justify-center gap-3 rounded-full bg-primary py-6 font-headline text-[24px] leading-[32px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface active:scale-[0.98]">
+            Let's Build It <ArrowRight className="h-5 w-5" />
+          </button>
+        </form>
+        <p className="mt-8 text-center font-label text-xs font-medium text-on-surface-dim/60">
+          Send the basics now. We can collect photos, domain details, menu PDFs, service lists, and brand notes after we
+          know the business.
+        </p>
+      </div>
     </div>
   </SectionShell>
 );

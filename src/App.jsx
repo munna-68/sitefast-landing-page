@@ -446,10 +446,10 @@ const WorkSection = () => {
 
   return (
     <SectionShell>
-      <div className="grid gap-6">
-        <div className="text-center">
+      <div className="w-full py-4 md:py-8">
+        <div className="mb-12 text-center md:mb-16">
           <div className="mx-auto max-w-3xl">
-            <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[48px] md:leading-[56px] md:tracking-[-0.02em] mb-4">
+            <h1 className="mb-4 font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[48px] md:leading-[56px]">
               Built for Businesses Like Yours
             </h1>
             <p className="font-body text-[18px] leading-[28px] text-on-surface-dim">
@@ -457,67 +457,86 @@ const WorkSection = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-          {['Small business sites', 'Service pages and lead forms', 'Launch plus monthly care'].map((item, index) => (
-            <p
-              key={item}
-              className={`text-xs font-medium transition-colors ${
-                index === 0
-                  ? 'text-primary relative after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:bg-primary'
-                  : 'text-on-surface-dim/60 hover:text-primary'
-              }`}
-            >
-              {item}
-            </p>
-          ))}
-        </div>
-        <motion.div layout className="grid gap-6 md:grid-cols-3">
-          <AnimatePresence initial={false}>
-            {visibleProjects.map((project, index) => (
-              <motion.article
-                layout
-                key={project.title}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 18 }}
-                transition={{ duration: 0.35, delay: index >= 3 ? (index - 3) * 0.05 : 0 }}
-                className="group flex flex-col overflow-hidden rounded-xl border border-outline-subtle/10 bg-surface-low transition-colors duration-300 hover:bg-surface-high"
+        <div className="mb-8 flex flex-wrap items-center gap-6 md:gap-12">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-dim/40">Filters</span>
+          <div className="flex flex-wrap gap-x-8 gap-y-4">
+            {['Small business sites', 'Service pages and lead forms', 'Launch plus monthly care'].map((item, index) => (
+              <p
+                key={item}
+                className={`font-label text-xs font-medium transition-colors ${
+                  index === 0
+                    ? 'text-primary relative after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:bg-primary'
+                    : 'text-on-surface-dim/60 hover:text-primary'
+                }`}
               >
-                <VideoPlaceholder src={project.videoSrc} />
-                <div className="flex flex-col flex-grow p-8">
-                  <h3 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary mb-3">{project.title}</h3>
-                  <p className="mb-8 min-h-12 flex-grow font-body text-[16px] leading-[24px] text-on-surface-dim">{project.description}</p>
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex gap-2">
-                      <LinkButton href={project.githubUrl} variant="outline" icon={Github}>
-                        <span className="sr-only">GitHub</span>
-                      </LinkButton>
-                      <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
-                        <span className="sr-only">Live Site</span>
-                      </LinkButton>
-                    </div>
-                    <button
-                      onClick={() => setSelectedProject(project)}
-                      className="rounded-full bg-primary px-6 py-2 font-label text-xs font-medium text-on-primary transition-colors hover:bg-on-surface active:scale-95"
-                    >
-                      Details
-                    </button>
-                  </div>
-                </div>
-              </motion.article>
+                {item}
+              </p>
             ))}
-          </AnimatePresence>
-        </motion.div>
-        {visibleCount < projects.length && (
-          <div className="flex items-center justify-end">
-            <button
-              onClick={() => setVisibleCount((count) => Math.min(count + 3, projects.length))}
-              className="flex items-center gap-2 font-label text-xs font-medium text-primary transition-all hover:underline"
-            >
-              Show More <ArrowRight className="h-4 w-4" />
-            </button>
           </div>
-        )}
+        </div>
+        <div className="overflow-hidden">
+          <motion.div
+            layout
+            className="hide-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto pb-8 pr-0 md:pr-16"
+          >
+            <AnimatePresence initial={false}>
+              {visibleProjects.map((project, index) => (
+                <motion.article
+                  layout
+                  key={project.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 18 }}
+                  transition={{ duration: 0.35, delay: index >= 3 ? (index - 3) * 0.05 : 0 }}
+                  className="group flex min-w-[85vw] snap-start flex-col overflow-hidden rounded-xl border border-outline-subtle/20 bg-surface-low transition-colors duration-300 hover:bg-surface-high md:min-w-[40%] lg:min-w-[38%]"
+                >
+                  <div className="aspect-[16/10] overflow-hidden bg-surface-high">
+                    <VideoPlaceholder src={project.videoSrc} />
+                  </div>
+                  <div className="flex flex-grow flex-col p-8">
+                    <h3 className="mb-3 font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">
+                      {project.title}
+                    </h3>
+                    <p className="mb-8 min-h-12 flex-grow font-body text-[16px] leading-[24px] text-on-surface-dim">
+                      {project.description}
+                    </p>
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex gap-2">
+                        <LinkButton href={project.githubUrl} variant="outline" icon={Github}>
+                          <span className="sr-only">GitHub</span>
+                        </LinkButton>
+                        <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
+                          <span className="sr-only">Live Site</span>
+                        </LinkButton>
+                      </div>
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        className="rounded-full bg-primary px-6 py-2 font-label text-xs font-bold text-on-primary transition-colors hover:bg-on-surface active:scale-95"
+                      >
+                        Details
+                      </button>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+          {visibleCount < projects.length && (
+            <div className="mt-8 flex items-center justify-between">
+              <div className="flex gap-2">
+                <div className="h-1 w-12 rounded-full bg-primary" />
+                <div className="h-1 w-8 rounded-full bg-outline-subtle/30" />
+                <div className="h-1 w-8 rounded-full bg-outline-subtle/30" />
+              </div>
+              <button
+                onClick={() => setVisibleCount((count) => Math.min(count + 3, projects.length))}
+                className="flex items-center gap-2 font-label text-xs font-bold text-primary transition-all hover:underline"
+              >
+                Show More <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </SectionShell>

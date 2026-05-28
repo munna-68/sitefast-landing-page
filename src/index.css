@@ -34,3 +34,12 @@ body {
   border-color: rgba(255, 255, 255, 0.4);
   background-color: #1c1b1b;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

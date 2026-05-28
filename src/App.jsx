@@ -306,7 +306,7 @@ const HowItWorksSection = () => {
         </div>
         <div className="lg:col-span-6 lg:pl-12 space-y-12">
           <div className="relative">
-            <div className="absolute left-12 top-0 bottom-0 w-px bg-gradient-to-b from-primary/30 via-primary/10 to-transparent" />
+            <div className="absolute left-12 top-12 bottom-12 w-px bg-outline-subtle/30" />
             <div className="space-y-16">
               {steps.map(([title, text], index) => (
                 <FadeIn key={title} delay={index * 0.1}>
@@ -374,17 +374,6 @@ const PricingSection = () => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {features.map(([title, text, Icon], index) => (
-            <FadeIn key={title} delay={index * 0.04}>
-              <div className="group h-full rounded-lg border border-outline-subtle/10 bg-surface-low p-8 transition-colors duration-300 hover:bg-surface-high">
-                <Icon className="mb-6 h-6 w-6 text-primary" />
-                <h3 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary mb-2">{title}</h3>
-                <p className="font-body text-[16px] leading-[24px] text-on-surface-dim">{text}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
         <FadeIn delay={0.16}>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
@@ -409,6 +398,17 @@ const PricingSection = () => {
             </table>
           </div>
         </FadeIn>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {features.map(([title, text, Icon], index) => (
+            <FadeIn key={title} delay={index * 0.04}>
+              <div className="group h-full rounded-lg border border-outline-subtle/10 bg-surface-low p-8 transition-colors duration-300 hover:bg-surface-high">
+                <Icon className="mb-6 h-6 w-6 text-primary" />
+                <h3 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary mb-2">{title}</h3>
+                <p className="font-body text-[16px] leading-[24px] text-on-surface-dim">{text}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
         <FadeIn delay={0.22}>
           <div className="grid gap-5 border-y border-outline-subtle/10 py-5 lg:grid-cols-[0.6fr_1.4fr]">
             <h3 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">"This Sounds Too Good. What's the Catch?"</h3>

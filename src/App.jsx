@@ -1,33 +1,127 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, MoveRight, Instagram, Twitter, Linkedin, MapPin, ArrowDown, Mail } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  ChevronDown,
+  Github,
+  Globe2,
+  Mail,
+  Play,
+  Search,
+  ShieldCheck,
+  SlidersHorizontal,
+  Sparkles,
+  X,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const tabs = ['Home', 'How It Works', 'Pricing', 'Work', 'Contact'];
+
+const projects = [
+  {
+    title: 'Local Cafe Refresh',
+    description: 'A warm, fast site for a neighborhood cafe with menus, hours, and mobile-first directions.',
+    fullDescription:
+      'A compact business site built to help regulars check hours quickly and help new customers find the cafe from local search.',
+    videoSrc: null,
+    githubUrl: null,
+    liveUrl: null,
+  },
+  {
+    title: 'Contractor Quote Site',
+    description: 'A lead-focused website for a home services company with clear service pages and calls to action.',
+    fullDescription:
+      'A hand-coded site structured around service areas, trust signals, and a simple request flow for homeowners.',
+    videoSrc: null,
+    githubUrl: null,
+    liveUrl: null,
+  },
+  {
+    title: 'Salon Booking Launch',
+    description: 'A polished salon site designed around services, pricing, photos, and booking links.',
+    fullDescription:
+      'A clean launch site for a service business that needed credibility, fast mobile performance, and easy updates.',
+    videoSrc: null,
+    githubUrl: null,
+    liveUrl: null,
+  },
+  {
+    title: 'Fitness Coach Brand',
+    description: 'A bold personal brand site with programs, testimonials, and a direct inquiry path.',
+    fullDescription:
+      'A conversion-minded site for a solo operator who needed a memorable first impression and low-friction leads.',
+    videoSrc: null,
+    githubUrl: null,
+    liveUrl: null,
+  },
+  {
+    title: 'Dental Office Starter',
+    description: 'A calm, trustworthy local site for services, insurance details, and patient contact.',
+    fullDescription:
+      'A practical healthcare-adjacent marketing site with accessible content structure and local SEO basics.',
+    videoSrc: null,
+    githubUrl: null,
+    liveUrl: null,
+  },
+  {
+    title: 'Boutique Retail Site',
+    description: 'A sharp storefront presence with product highlights, location details, and social proof.',
+    fullDescription:
+      'A visual business site for a retail shop that needed better local discovery without maintaining a large catalog.',
+    videoSrc: null,
+    githubUrl: null,
+    liveUrl: null,
+  },
+];
+
+const processSteps = [
+  {
+    title: 'Requirements',
+    text: "Understand the client's business, goals, and what they need from their website",
+  },
+  {
+    title: 'Design',
+    text: 'Build the full design in Figma, present it to the client, and iterate until they approve',
+  },
+  {
+    title: 'Development',
+    text: 'Convert the approved Figma design into clean, hand-coded React/Next.js',
+  },
+  {
+    title: 'Optimization',
+    text: 'Performance tuning, SEO setup, accessibility checks, mobile responsiveness, and code cleanup before launch',
+  },
+  {
+    title: 'Handoff & Maintenance',
+    text: 'Site goes live, client gets their domain, ongoing $30/month support begins',
+  },
+];
 
 const customStyles = `
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+  ::-webkit-scrollbar-thumb { background: #4b4b3f; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6f6f5e; }
 `;
 
-const FadeIn = ({ children, delay = 0, y = 40, className = "" }) => (
+const FadeIn = ({ children, delay = 0, y = 24, className = '' }) => (
   <motion.div
     initial={{ opacity: 0, y }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay }}
     className={className}
   >
     {children}
   </motion.div>
 );
 
-const RevealLine = ({ children, delay = 0, className = "" }) => (
-  <span className="block overflow-hidden pb-4 -mb-4">
+const RevealLine = ({ children, delay = 0, className = '' }) => (
+  <span className="block overflow-hidden pb-2 -mb-2">
     <motion.span
       className={`block ${className}`}
-      initial={{ y: "100%" }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      initial={{ y: '100%' }}
+      animate={{ y: 0 }}
       transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {children}
@@ -35,207 +129,406 @@ const RevealLine = ({ children, delay = 0, className = "" }) => (
   </span>
 );
 
-const HomeSection = () => (
-  <div className="px-6 md:px-12 max-w-7xl mx-auto pb-32">
-    <div className="flex flex-col justify-center min-h-[90vh]">
-      <div className="max-w-4xl">
-        <div className="mb-8">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[1.1]">
-            <RevealLine>We create</RevealLine>
-            <RevealLine delay={0.1} className="font-serif italic text-zinc-300">Digital Products.</RevealLine>
-          </h1>
+const SectionShell = ({ children, className = '' }) => (
+  <section className={`min-h-full h-full px-4 sm:px-6 lg:px-10 pt-24 pb-28 overflow-y-auto ${className}`}>
+    <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col justify-center">{children}</div>
+  </section>
+);
+
+const VideoPlaceholder = ({ src, large = false }) => (
+  <div
+    className={`relative aspect-video w-full overflow-hidden rounded-lg border border-[#e5e0c8]/15 bg-[#15150f] ${
+      large ? 'shadow-2xl shadow-black/35' : ''
+    }`}
+  >
+    {src ? (
+      <video src={src} className="h-full w-full object-cover" controls />
+    ) : (
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[linear-gradient(135deg,rgba(218,255,103,0.12),rgba(255,119,85,0.08)),radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.09),transparent_30%)]">
+        <div className="grid h-12 w-12 place-items-center rounded-full border border-[#e5e0c8]/20 bg-black/30">
+          <Play className="h-5 w-5 fill-[#e5e0c8] text-[#e5e0c8]" />
         </div>
-        <FadeIn delay={0.2}>
-          <p className="text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed">
-            An independent digital agency focused on crafting exceptional experiences through design and technology.
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.3}>
-          <div className="mt-12 flex items-center gap-6">
-            <button className="group flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-zinc-200 transition-colors">
-              Start a project <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <span className="text-sm text-zinc-500 uppercase tracking-widest flex items-center gap-2">
-              <ArrowDown className="w-4 h-4 animate-bounce" /> Scroll to explore
-            </span>
-          </div>
-        </FadeIn>
+        <span className="text-xs uppercase tracking-[0.22em] text-[#e5e0c8]/55">Video coming soon</span>
       </div>
-    </div>
-    <div className="pt-32 border-t border-white/10">
-      <FadeIn>
-        <h3 className="text-3xl font-serif italic mb-12">Recent Highlights</h3>
-      </FadeIn>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <FadeIn delay={0.1}>
-          <div className="aspect-video bg-zinc-900 rounded-3xl overflow-hidden relative group cursor-pointer">
-            <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Work 1" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-70 group-hover:opacity-100" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end">
-              <p className="text-white font-medium text-xl">Fintech Dashboard</p>
-              <p className="text-zinc-400 text-sm">UX/UI Design</p>
-            </div>
-          </div>
-        </FadeIn>
-        <FadeIn delay={0.2}>
-          <div className="aspect-video bg-zinc-900 rounded-3xl overflow-hidden relative group cursor-pointer">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Work 2" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-70 group-hover:opacity-100" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end">
-              <p className="text-white font-medium text-xl">Data Visualization</p>
-              <p className="text-zinc-400 text-sm">Frontend Engineering</p>
-            </div>
-          </div>
-        </FadeIn>
-      </div>
-    </div>
+    )}
   </div>
 );
 
-const AboutSection = () => (
-  <div className="py-32 px-6 md:px-12 max-w-7xl mx-auto pb-48">
-    <div className="max-w-4xl">
-      <h2 className="text-4xl md:text-7xl font-medium tracking-tight">
-        <RevealLine>Wir sind eine</RevealLine>
-        <RevealLine delay={0.1} className="font-serif italic text-zinc-300">Digitalagentur.</RevealLine>
-      </h2>
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-16">
-        <div className="text-xl text-zinc-400 leading-relaxed font-light">
-          <FadeIn delay={0.2}>
-            <p className="mb-8">
-              Hi. Wir sind das Team. Als Digitalagentur machen wir genau das, was es f&uuml;r wundervolle digitale Produkte braucht: Customer Experience Design, Product Engineering und Digital Growth.
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p>
-              Wir sind ein Team aus &uuml;ber 30 Digital Explorers; und unsere Home Base ist irgendwo da drau&szlig;en in der weiten digitalen Welt.
-            </p>
-          </FadeIn>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <FadeIn delay={0.2} className="aspect-[4/5] bg-zinc-900 rounded-2xl overflow-hidden group">
-             <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 opacity-70 group-hover:opacity-100" />
-          </FadeIn>
-          <FadeIn delay={0.3} className="aspect-[4/5] bg-zinc-900 rounded-2xl overflow-hidden group translate-y-8">
-             <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Office" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 opacity-70 group-hover:opacity-100" />
-          </FadeIn>
-        </div>
-      </div>
-    </div>
-    <div className="mt-48 max-w-4xl mx-auto text-center">
-      <FadeIn>
-        <p className="text-sm font-medium tracking-widest uppercase text-zinc-500 mb-8">Our Core Values</p>
-      </FadeIn>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {[
-          { title: 'Curiosity', desc: 'We ask the right questions to find the perfect technical and visual solutions.' },
-          { title: 'Craftsmanship', desc: 'Every pixel and line of code is written with absolute intentionality.' },
-          { title: 'Impact', desc: 'We build products that actually move the needle for our partners.' }
-        ].map((val, idx) => (
-          <FadeIn key={val.title} delay={idx * 0.1}>
-            <h4 className="text-2xl font-serif italic mb-4">{val.title}</h4>
-            <p className="text-zinc-400">{val.desc}</p>
-          </FadeIn>
-        ))}
-      </div>
-    </div>
-  </div>
-);
+const LinkButton = ({ href, children, variant = 'solid', icon: Icon }) => {
+  const disabled = !href;
+  const classes =
+    variant === 'solid'
+      ? 'bg-[#e8ff69] text-[#15150f] hover:bg-[#f1ff98]'
+      : 'border border-[#e5e0c8]/20 text-[#f6f1dc] hover:border-[#e8ff69]/60 hover:text-[#e8ff69]';
 
-const WorkSection = () => {
-  const cases = [
-    { id: 1, title: 'Customer Experience', category: 'Design', gradient: 'from-fuchsia-600 to-purple-900', img: 'https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 2, title: 'Product Engineering', category: 'Technology', gradient: 'from-blue-600 to-indigo-900', img: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 3, title: 'Digital Growth', category: 'Marketing', gradient: 'from-rose-600 to-orange-900', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 4, title: 'Brand Identity', category: 'Creative', gradient: 'from-emerald-600 to-teal-900', img: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 5, title: 'Spatial Computing', category: 'Innovation', gradient: 'from-cyan-600 to-blue-900', img: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 6, title: 'E-Commerce', category: 'Platforms', gradient: 'from-amber-600 to-red-900', img: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-  ];
+  if (disabled) {
+    return (
+      <button
+        disabled
+        className="inline-flex items-center justify-center gap-2 rounded-full border border-[#e5e0c8]/10 px-4 py-2 text-sm font-semibold text-[#e5e0c8]/35"
+      >
+        {Icon && <Icon className="h-4 w-4" />}
+        {children}
+      </button>
+    );
+  }
 
   return (
-    <div className="py-32 px-6 md:px-12 max-w-7xl mx-auto pb-48">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-        <h2 className="text-4xl md:text-6xl font-medium tracking-tight">
-          <RevealLine>Und das</RevealLine>
-          <RevealLine delay={0.1} className="font-serif italic text-zinc-300">k&ouml;nnen wir.</RevealLine>
-        </h2>
-        <FadeIn delay={0.2} className="mt-6 md:mt-0 text-zinc-400 max-w-xs md:text-right text-sm md:text-base">
-          Egal wie man es auch nennt: Leistungen, Services, Kompetenzen &ndash; This is what we do.
-        </FadeIn>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cases.map((item, index) => (
-          <FadeIn key={item.id} delay={(index % 3) * 0.1}>
-            <div className="group relative aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer">
-              <img src={item.img} alt={item.title} className="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:scale-105 transition-transform duration-700" />
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-80 mix-blend-multiply group-hover:opacity-90 transition-opacity duration-500`} />
-              <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
-                <div className="self-start">
-                  <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium border border-white/20 text-white shadow-lg">
-                    {item.category}
-                  </span>
-                </div>
-                <div className="flex justify-between items-end">
-                  <h3 className="text-3xl font-medium leading-tight max-w-[80%] text-white">{item.title}</h3>
-                  <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-400 shadow-xl">
-                    <ArrowUpRight className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        ))}
-      </div>
-    </div>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${classes}`}
+    >
+      {Icon && <Icon className="h-4 w-4" />}
+      {children}
+    </a>
   );
 };
 
-const ContactSection = () => (
-  <div className="py-32 px-6 md:px-12 max-w-7xl mx-auto pb-48">
-    <div className="flex flex-col justify-center min-h-[70vh] text-center">
-      <FadeIn>
-        <p className="text-zinc-400 font-medium mb-6 uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-          <Mail className="w-4 h-4" /> Get in touch
+const HomeSection = ({ onCta }) => (
+  <SectionShell>
+    <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div>
+        <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#e8ff69]/30 bg-[#e8ff69]/10 px-4 py-2 text-sm font-semibold text-[#e8ff69]">
+          <Sparkles className="h-4 w-4" /> SiteKeep
         </p>
-      </FadeIn>
-      <div className="mt-2">
-        <h2 className="text-4xl md:text-7xl lg:text-8xl font-medium tracking-tight hover:text-zinc-300 transition-colors cursor-pointer inline-flex justify-center">
-          <RevealLine delay={0.1}>hello@<span className="font-serif italic text-zinc-500">agency</span>.com</RevealLine>
-        </h2>
-      </div>
-    </div>
-    <div className="mt-12 pt-24 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-16">
-      <FadeIn>
-        <h4 className="text-2xl font-serif italic mb-6">Our Office</h4>
-        <div className="flex items-start gap-4 text-zinc-400">
-          <MapPin className="w-5 h-5 mt-1 shrink-0" />
-          <p className="leading-relaxed">
-            Musterstra&szlig;e 123<br />
-            10115 Berlin<br />
-            Germany
+        <h1 className="max-w-5xl text-5xl font-black leading-[0.95] tracking-normal text-[#f6f1dc] sm:text-6xl lg:text-8xl">
+          <RevealLine>We Build Your</RevealLine>
+          <RevealLine delay={0.08} className="text-[#e8ff69]">
+            Website. For Free.
+          </RevealLine>
+        </h1>
+        <FadeIn delay={0.18}>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-[#d8d1b2] sm:text-xl">
+            Seriously. No setup fee, no hidden costs. Just $30/month to keep it running, secure, and updated — forever.
           </p>
+        </FadeIn>
+        <FadeIn delay={0.28}>
+          <button
+            onClick={onCta}
+            className="mt-9 inline-flex items-center gap-3 rounded-full bg-[#ff785a] px-6 py-3 text-base font-bold text-[#15150f] shadow-xl shadow-[#ff785a]/20 transition hover:bg-[#ff9279]"
+          >
+            Get My Free Website <ArrowRight className="h-5 w-5" />
+          </button>
+        </FadeIn>
+      </div>
+      <FadeIn delay={0.25} className="hidden lg:block">
+        <div className="relative rounded-lg border border-[#e5e0c8]/15 bg-[#f6f1dc] p-4 text-[#15150f] shadow-2xl shadow-black/40">
+          <div className="mb-4 flex items-center justify-between border-b border-[#15150f]/10 pb-3">
+            <div className="flex gap-2">
+              <span className="h-3 w-3 rounded-full bg-[#ff785a]" />
+              <span className="h-3 w-3 rounded-full bg-[#e8ff69]" />
+              <span className="h-3 w-3 rounded-full bg-[#6edbd2]" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#15150f]/50">Live care</span>
+          </div>
+          <div className="grid gap-3">
+            {['Free custom build', '$30 monthly care', 'Updates by text', 'No contract'].map((item) => (
+              <div key={item} className="flex items-center justify-between rounded-lg bg-[#15150f] p-4 text-[#f6f1dc]">
+                <span className="font-semibold">{item}</span>
+                <Check className="h-5 w-5 text-[#e8ff69]" />
+              </div>
+            ))}
+          </div>
         </div>
       </FadeIn>
-      <FadeIn delay={0.1}>
-        <h4 className="text-2xl font-serif italic mb-6">Socials</h4>
-        <div className="flex flex-col gap-4">
-          {[
-            { name: 'Instagram', icon: Instagram },
-            { name: 'Twitter', icon: Twitter },
-            { name: 'LinkedIn', icon: Linkedin }
-          ].map((social) => (
-            <a key={social.name} href="#" className="flex items-center gap-4 text-zinc-400 hover:text-white transition-colors w-max group">
-              <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              <span className="text-lg">{social.name}</span>
-            </a>
+    </div>
+  </SectionShell>
+);
+
+const HowItWorksSection = () => {
+  const steps = [
+    ['You reach out', 'Tell us about your business. Takes 5 minutes.'],
+    ['We build your site', 'Custom, hand-coded, ready in 1–2 weeks. Free.'],
+    ['We keep it running', '$30/month. Cancel anytime.'],
+  ];
+
+  return (
+    <SectionShell>
+      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div>
+          <h2 className="text-4xl font-black leading-none text-[#f6f1dc] sm:text-6xl">
+            <RevealLine>Three Steps.</RevealLine>
+            <RevealLine delay={0.08} className="text-[#e8ff69]">
+              Zero Stress.
+            </RevealLine>
+          </h2>
+          <FadeIn delay={0.18}>
+            <div className="mt-8 rounded-lg border border-[#e8ff69]/25 bg-[#e8ff69]/10 p-6">
+              <h3 className="text-2xl font-black text-[#f6f1dc]">Why Would We Build It For Free?</h3>
+              <p className="mt-4 leading-7 text-[#d8d1b2]">
+                Honest answer: we don't make money upfront. We build your site at no charge and only start earning after
+                you've been with us for about two years. That means we're motivated to build something you actually love
+                and keep you around — not take your money and disappear. No contract. No gotcha. Just a handshake deal
+                that works for both of us.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+        <div className="grid gap-4">
+          {steps.map(([title, text], index) => (
+            <FadeIn key={title} delay={index * 0.1}>
+              <div className="grid gap-4 rounded-lg border border-[#e5e0c8]/15 bg-[#f6f1dc]/[0.04] p-5 sm:grid-cols-[4rem_1fr]">
+                <span className="grid h-14 w-14 place-items-center rounded-lg bg-[#ff785a] text-xl font-black text-[#15150f]">
+                  {index + 1}
+                </span>
+                <div>
+                  <h3 className="text-2xl font-black text-[#f6f1dc]">{title}</h3>
+                  <p className="mt-2 text-[#d8d1b2]">{text}</p>
+                </div>
+              </div>
+            </FadeIn>
           ))}
         </div>
-      </FadeIn>
+      </div>
+    </SectionShell>
+  );
+};
+
+const PricingSection = () => {
+  const features = [
+    ['Security & Hosting', 'Your site stays online, protected, and never goes down', ShieldCheck],
+    ['Monthly Updates', 'Need to change your hours, menu, or prices? Done.', SlidersHorizontal],
+    ['Google Analytics', "See who's visiting and where they're coming from", Search],
+    ['SEO Optimization', 'Built to show up when people search for you locally', ArrowUpRight],
+    ['Custom Hand-Coded Site', 'Not a Wix template. A real website built for your business', Sparkles],
+    ['Ongoing Support', "You have a question, you text us. That's it.", Mail],
+  ];
+
+  const rows = [
+    ['Setup Cost', '$0', '$0', '$2,000–$10,000'],
+    ['Monthly Cost', '$30', '$16–$45', '$100–$500'],
+    ['Custom Built', 'Yes', 'No', 'Yes'],
+    ['Ongoing Support', 'Yes', 'No', 'Rarely'],
+    ['You Own the Domain', 'Yes', 'Yes', 'Sometimes'],
+    ['SEO Optimized', 'Yes', 'Basic', 'Yes'],
+  ];
+
+  return (
+    <SectionShell>
+      <div className="grid gap-6">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <h2 className="max-w-3xl text-4xl font-black leading-none text-[#f6f1dc] sm:text-6xl">
+            Your $30/Month Keeps Everything Running
+          </h2>
+          <span className="w-max rounded-full bg-[#e8ff69] px-4 py-2 text-sm font-black text-[#15150f]">$0 setup</span>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {features.map(([title, text, Icon], index) => (
+            <FadeIn key={title} delay={index * 0.04}>
+              <div className="h-full rounded-lg border border-[#e5e0c8]/15 bg-[#f6f1dc]/[0.04] p-4">
+                <Icon className="mb-4 h-6 w-6 text-[#e8ff69]" />
+                <h3 className="text-lg font-black text-[#f6f1dc]">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#d8d1b2]">{text}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+        <FadeIn delay={0.16}>
+          <div className="overflow-x-auto rounded-lg border border-[#e5e0c8]/15">
+            <div className="min-w-[680px]">
+            <div className="grid grid-cols-4 bg-[#f6f1dc]/[0.06] text-sm font-black text-[#f6f1dc]">
+              <span className="p-3"> </span>
+              <span className="bg-[#e8ff69] p-3 text-[#15150f]">SiteKeep</span>
+              <span className="p-3">Wix/Squarespace</span>
+              <span className="p-3">Agency</span>
+            </div>
+            {rows.map((row) => (
+              <div key={row[0]} className="grid grid-cols-4 border-t border-[#e5e0c8]/10 text-sm text-[#d8d1b2]">
+                <span className="p-3 font-semibold text-[#f6f1dc]">{row[0]}</span>
+                <span className="bg-[#e8ff69]/15 p-3 font-black text-[#e8ff69]">{row[1]}</span>
+                <span className="p-3">{row[2]}</span>
+                <span className="p-3">{row[3]}</span>
+              </div>
+            ))}
+            </div>
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.22}>
+          <div className="rounded-lg border border-[#ff785a]/25 bg-[#ff785a]/10 p-5">
+            <h3 className="text-2xl font-black text-[#f6f1dc]">"This Sounds Too Good. What's the Catch?"</h3>
+            <p className="mt-3 leading-7 text-[#d8d1b2]">
+              Fair question. Here's the truth: we make our money over time, not upfront. We break even around the
+              two-year mark, then it becomes worth it for us. That model only works if you're happy enough to stay — so
+              we have every reason to do great work and keep you satisfied. No contracts. No pressure. If you ever want
+              to leave, we'll hand you everything — your domain, your files, all of it.
+            </p>
+          </div>
+        </FadeIn>
+      </div>
+    </SectionShell>
+  );
+};
+
+const WorkSection = () => {
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const visibleProjects = projects.slice(0, visibleCount);
+
+  return (
+    <SectionShell>
+      <div className="grid gap-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <h2 className="text-4xl font-black leading-none text-[#f6f1dc] sm:text-6xl">Built for Businesses Like Yours</h2>
+            <p className="mt-4 max-w-2xl text-[#d8d1b2]">
+              Every site is hand-coded from scratch. No templates, no page builders.
+            </p>
+          </div>
+          {visibleCount < projects.length && (
+            <button
+              onClick={() => setVisibleCount((count) => Math.min(count + 3, projects.length))}
+              className="inline-flex w-max items-center gap-2 rounded-full border border-[#e5e0c8]/20 px-4 py-2 font-semibold text-[#f6f1dc] transition hover:border-[#e8ff69]/60 hover:text-[#e8ff69]"
+            >
+              Show More <ChevronDown className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+        <motion.div layout className="grid gap-4 md:grid-cols-3">
+          <AnimatePresence initial={false}>
+            {visibleProjects.map((project, index) => (
+              <motion.article
+                layout
+                key={project.title}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 18 }}
+                transition={{ duration: 0.35, delay: index >= 3 ? (index - 3) * 0.05 : 0 }}
+                className="rounded-lg border border-[#e5e0c8]/15 bg-[#f6f1dc]/[0.04] p-3"
+              >
+                <VideoPlaceholder src={project.videoSrc} />
+                <div className="mt-4">
+                  <h3 className="text-xl font-black text-[#f6f1dc]">{project.title}</h3>
+                  <p className="mt-2 min-h-12 text-sm leading-6 text-[#d8d1b2]">{project.description}</p>
+                </div>
+                <div className="mt-4 flex items-center justify-between gap-2">
+                  <div className="flex gap-2">
+                    <LinkButton href={project.githubUrl} variant="outline" icon={Github}>
+                      <span className="sr-only">GitHub</span>
+                    </LinkButton>
+                    <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
+                      <span className="sr-only">Live Site</span>
+                    </LinkButton>
+                  </div>
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    className="rounded-full bg-[#f6f1dc] px-4 py-2 text-sm font-black text-[#15150f] transition hover:bg-white"
+                  >
+                    Details
+                  </button>
+                </div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+    </SectionShell>
+  );
+};
+
+const ProjectModal = ({ project, onClose }) => (
+  <AnimatePresence>
+    {project && (
+      <motion.div
+        className="fixed inset-0 z-[90] grid place-items-center bg-black/70 p-4 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.92, y: 20 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+          onClick={(event) => event.stopPropagation()}
+          onWheel={(event) => event.stopPropagation()}
+          onTouchStart={(event) => event.stopPropagation()}
+          onTouchEnd={(event) => event.stopPropagation()}
+          className="max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-[#e5e0c8]/20 bg-[#191912] p-4 text-[#f6f1dc] shadow-2xl"
+        >
+          <div className="mb-4 flex justify-end">
+            <button
+              onClick={onClose}
+              className="grid h-10 w-10 place-items-center rounded-full border border-[#e5e0c8]/15 text-[#f6f1dc] transition hover:border-[#ff785a]/70 hover:text-[#ff785a]"
+              aria-label="Close project details"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <VideoPlaceholder src={project.videoSrc} large />
+          <div className="mt-6 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+            <div>
+              <h3 className="text-3xl font-black">{project.title}</h3>
+              <p className="mt-3 leading-7 text-[#d8d1b2]">{project.fullDescription || project.description}</p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <LinkButton href={project.githubUrl} icon={Github}>
+                  GitHub
+                </LinkButton>
+                <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
+                  Live Site
+                </LinkButton>
+              </div>
+            </div>
+            <div>
+              <h4 className="mb-4 text-xl font-black">My Process</h4>
+              <div className="grid gap-3">
+                {processSteps.map((step, index) => (
+                  <div key={step.title} className="grid grid-cols-[2.5rem_1fr] gap-3">
+                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-[#e8ff69] text-sm font-black text-[#15150f]">
+                      {index + 1}
+                    </span>
+                    <div className="border-b border-[#e5e0c8]/10 pb-3">
+                      <h5 className="font-black">{step.title}</h5>
+                      <p className="mt-1 text-sm leading-6 text-[#d8d1b2]">{step.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
+const ContactSection = () => (
+  <SectionShell>
+    <div className="mx-auto w-full max-w-4xl">
+      <h2 className="text-4xl font-black leading-none text-[#f6f1dc] sm:text-6xl lg:text-7xl">
+        Ready for Your Free Website?
+      </h2>
+      <p className="mt-5 max-w-2xl text-lg leading-8 text-[#d8d1b2]">
+        Tell us a little about your business and we'll take it from there. No commitment, no credit card.
+      </p>
+      <form
+        className="mt-8 grid gap-4 rounded-lg border border-[#e5e0c8]/15 bg-[#f6f1dc]/[0.04] p-4 sm:grid-cols-2"
+        onSubmit={(event) => event.preventDefault()}
+      >
+        {['Your Name', 'Business Name', 'Business Type', 'Phone or Email'].map((label) => (
+          <label key={label} className="grid gap-2 text-sm font-bold text-[#f6f1dc]">
+            {label}
+            <input
+              className="rounded-lg border border-[#e5e0c8]/15 bg-[#0f0f0b] px-4 py-3 text-base text-[#f6f1dc] outline-none transition placeholder:text-[#e5e0c8]/30 focus:border-[#e8ff69]/70"
+              placeholder={label}
+            />
+          </label>
+        ))}
+        <button className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#ff785a] px-6 py-3 font-black text-[#15150f] transition hover:bg-[#ff9279] sm:col-span-2">
+          Let's Build It → <ArrowRight className="h-5 w-5" />
+        </button>
+      </form>
     </div>
-  </div>
+  </SectionShell>
 );
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Intro');
-  const tabs = ['Intro', 'About', 'Services', 'Cases'];
+  const [activeTab, setActiveTab] = useState('Home');
+  const cooldownRef = useRef(false);
+  const touchStartYRef = useRef(null);
 
   useEffect(() => {
     const styleEl = document.createElement('style');
@@ -244,28 +537,82 @@ export default function App() {
     return () => document.head.removeChild(styleEl);
   }, []);
 
+  const moveToTab = (tab) => {
+    if (!tabs.includes(tab)) return;
+    setActiveTab(tab);
+  };
+
+  const moveByDirection = (direction) => {
+    if (cooldownRef.current) return;
+    const currentIndex = tabs.indexOf(activeTab);
+    const nextIndex = Math.min(Math.max(currentIndex + direction, 0), tabs.length - 1);
+    if (nextIndex === currentIndex) return;
+
+    cooldownRef.current = true;
+    setActiveTab(tabs[nextIndex]);
+    window.setTimeout(() => {
+      cooldownRef.current = false;
+    }, 800);
+  };
+
+  const handleWheel = (event) => {
+    if (Math.abs(event.deltaY) < 24) return;
+    moveByDirection(event.deltaY > 0 ? 1 : -1);
+  };
+
+  const handleTouchStart = (event) => {
+    touchStartYRef.current = event.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartYRef.current === null) return;
+    const deltaY = touchStartYRef.current - event.changedTouches[0].clientY;
+    touchStartYRef.current = null;
+    if (Math.abs(deltaY) < 44) return;
+    moveByDirection(deltaY > 0 ? 1 : -1);
+  };
+
   const getTabColor = (tab) => {
     switch (tab) {
-      case 'Intro': return '#09090b';
-      case 'About': return '#121214';
-      case 'Services': return '#0a0a0c';
-      case 'Cases': return '#101012';
-      default: return '#09090b';
+      case 'Home':
+        return '#10100b';
+      case 'How It Works':
+        return '#17130e';
+      case 'Pricing':
+        return '#11130e';
+      case 'Work':
+        return '#121114';
+      case 'Contact':
+        return '#15100f';
+      default:
+        return '#10100b';
     }
   };
 
   const renderContent = (tabName) => {
     switch (tabName) {
-      case 'Intro': return <HomeSection />;
-      case 'About': return <AboutSection />;
-      case 'Services': return <WorkSection />;
-      case 'Cases': return <ContactSection />;
-      default: return <HomeSection />;
+      case 'Home':
+        return <HomeSection onCta={() => moveToTab('Contact')} />;
+      case 'How It Works':
+        return <HowItWorksSection />;
+      case 'Pricing':
+        return <PricingSection />;
+      case 'Work':
+        return <WorkSection />;
+      case 'Contact':
+        return <ContactSection />;
+      default:
+        return <HomeSection onCta={() => moveToTab('Contact')} />;
     }
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black text-zinc-50 font-sans selection:bg-zinc-800 selection:text-white">
+    <div
+      className="relative h-screen w-full overflow-hidden bg-black text-[#f6f1dc] selection:bg-[#e8ff69] selection:text-[#15150f]"
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <AnimatePresence initial={false}>
         <motion.main
           key={activeTab}
@@ -273,55 +620,45 @@ export default function App() {
           animate={{ y: 0, zIndex: 20, boxShadow: '0 0px 0px rgba(0,0,0,0)', scale: 1, opacity: 1 }}
           exit={{ y: 0, scale: 0.94, opacity: 0.6, zIndex: 10, filter: 'blur(2px)' }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden"
+          className="absolute inset-0 h-full w-full overflow-hidden"
           style={{ backgroundColor: getTabColor(activeTab) }}
         >
-          <header className="relative w-full p-6 md:p-8 flex justify-between items-center z-50 mix-blend-difference">
-            <p className="text-sm font-medium tracking-wide">Exploring Digital Future. <span className="font-serif italic text-zinc-400">Together.</span></p>
-            <div className="text-xl font-serif italic font-bold">
-              beaklyn.
-            </div>
+          <header className="absolute left-0 top-0 z-50 flex w-full items-center justify-between px-4 py-5 sm:px-6 lg:px-10">
+            <button onClick={() => moveToTab('Home')} className="text-xl font-black tracking-normal text-[#f6f1dc]">
+              Site<span className="text-[#e8ff69]">Keep</span>
+            </button>
+            <span className="hidden text-sm font-semibold text-[#d8d1b2] sm:inline-flex">
+              Free build. $30/month care.
+            </span>
           </header>
-          <div className="min-h-full flex flex-col pt-12">
-            {renderContent(activeTab)}
-          </div>
+          <div className="h-full">{renderContent(activeTab)}</div>
         </motion.main>
       </AnimatePresence>
-      <div className="fixed bottom-8 left-0 w-full flex justify-center z-50 pointer-events-none px-4">
-        <div className="pointer-events-auto relative flex items-center bg-[#1a1a1c]/90 backdrop-blur-xl p-1.5 rounded-full border border-white/10 shadow-2xl">
+      <div className="fixed bottom-5 left-0 z-50 flex w-full justify-center px-3 pointer-events-none sm:bottom-8">
+        <nav className="pointer-events-auto relative flex max-w-full items-center overflow-x-auto rounded-full border border-white/10 bg-[#1a1a1c]/90 p-1.5 shadow-2xl backdrop-blur-xl">
           {tabs.map((tab) => {
             const isActive = activeTab === tab;
             return (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => moveToTab(tab)}
                 className={`
-                  relative z-10 px-6 py-2.5 text-sm font-medium transition-colors duration-300 rounded-full
+                  relative z-10 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium transition-colors duration-300 sm:px-6
                   ${isActive ? 'text-black' : 'text-zinc-400 hover:text-zinc-200'}
                 `}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activePill"
-                    className="absolute inset-0 bg-white rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    className="absolute inset-0 -z-10 rounded-full bg-white"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
                 {tab}
-                {tab === 'Cases' && !isActive && (
-                   <span className="absolute top-2 right-3 w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
-                )}
               </button>
             );
           })}
-        </div>
-        <button className="pointer-events-auto absolute bottom-0 right-6 md:right-12 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-xl">
-          <div className="flex gap-1">
-            <div className="w-1 h-1 bg-black rounded-full" />
-            <div className="w-1 h-1 bg-black rounded-full" />
-            <div className="w-1 h-1 bg-black rounded-full" />
-          </div>
-        </button>
+        </nav>
       </div>
     </div>
   );

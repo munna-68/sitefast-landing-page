@@ -119,6 +119,77 @@ const customStyles = `
 // Preloader Context for triggering entrance animations simultaneously with the columns split
 const PreloaderContext = React.createContext({ startReveal: false });
 
+const buttonSpringTransition = { type: "spring", stiffness: 400, damping: 30 };
+
+const AnimatedButton = ({
+  as = "button",
+  className = "",
+  children,
+  icon: Icon,
+  showArrowAnimation = false,
+  arrowIcon: ArrowIcon = ArrowRight,
+  type = "button",
+  ...props
+}) => {
+  const Component = as === "a" ? motion.a : motion.button;
+
+  return (
+    <Component
+      initial="rest"
+      whileHover="hover"
+      whileTap="tap"
+      variants={{ tap: { scale: 0.95 } }}
+      transition={buttonSpringTransition}
+      className={className}
+      {...(as === "button" ? { type } : {})}
+      {...props}
+    >
+      {showArrowAnimation ? (
+        <>
+          <motion.div
+            variants={{
+              rest: { width: 0, opacity: 0 },
+              hover: { width: 32, opacity: 1 },
+            }}
+            transition={buttonSpringTransition}
+            className="flex items-center justify-start overflow-hidden whitespace-nowrap shrink-0"
+          >
+            <motion.div
+              variants={{ rest: { x: -20 }, hover: { x: 0 } }}
+              transition={buttonSpringTransition}
+            >
+              <ArrowIcon size={24} className="mr-2" />
+            </motion.div>
+          </motion.div>
+
+          <span className="relative z-10 whitespace-nowrap">{children}</span>
+
+          <motion.div
+            variants={{
+              rest: { width: 32, opacity: 1 },
+              hover: { width: 0, opacity: 0 },
+            }}
+            transition={buttonSpringTransition}
+            className="flex items-center justify-end overflow-hidden whitespace-nowrap shrink-0"
+          >
+            <motion.div
+              variants={{ rest: { x: 0 }, hover: { x: 20 } }}
+              transition={buttonSpringTransition}
+            >
+              <ArrowIcon size={24} className="ml-2" />
+            </motion.div>
+          </motion.div>
+        </>
+      ) : (
+        <>
+          {Icon && <Icon className="h-4 w-4" />}
+          <span className="relative z-10 whitespace-nowrap">{children}</span>
+        </>
+      )}
+    </Component>
+  );
+};
+
 // 1. Scramble & Glitch Text Component
 const ScrambleText = ({ text, startGlitchOut }) => {
   const [display, setDisplay] = useState(text.replace(/./g, " "));
@@ -420,12 +491,13 @@ const HomeSection = ({ onCta }) => (
           </p>
         </FadeIn>
         <FadeIn delay={0.28}>
-          <button
+          <AnimatedButton
             onClick={onCta}
-            className="inline-flex items-center justify-center gap-3 rounded-full bg-primary px-8 py-4 font-headline text-[18px] leading-[26px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface sm:px-10 sm:py-5 sm:text-[24px] sm:leading-[32px]"
+            showArrowAnimation
+            className="inline-flex items-center justify-center gap-3 rounded-full bg-primary px-8 py-4 font-headline text-[18px] leading-[26px] tracking-[-0.01em] font-semibold text-surface shadow-[0_18px_40px_rgba(255,255,255,0.12)] transition-colors hover:shadow-[0_24px_55px_rgba(255,255,255,0.18)] sm:px-10 sm:py-5 sm:text-[24px] sm:leading-[32px]"
           >
-            Get My Free Website <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-          </button>
+            Get My Free Website
+          </AnimatedButton>
         </FadeIn>
         <FadeIn delay={0.34}>
           <dl className="mt-6 grid grid-cols-3 border-y border-outline-subtle/10 py-4 font-label text-[10px] font-medium uppercase tracking-[0.05em] sm:mt-10 sm:py-5 sm:text-xs">
@@ -987,7 +1059,7 @@ const WorkSection = () => {
                       </div>
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="rounded-full bg-primary px-4 py-1.5 font-label text-[11px] font-bold text-on-primary transition-colors hover:bg-on-surface active:scale-95 sm:px-6 sm:py-2 sm:text-xs"
+                        className="rounded-full bg-primary px-4 py-1.5 font-label text-[11px] font-bold text-on-primary transition-colors hover:bg-on-surface sm:px-6 sm:py-2 sm:text-xs"
                       >
                         Details
                       </button>
@@ -1165,9 +1237,13 @@ const ContactSection = () => (
               </div>
             ))}
           </div>
-          <button className="flex w-full items-center justify-center gap-3 rounded-full bg-primary py-5 font-headline text-[18px] leading-[26px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface active:scale-[0.98] sm:py-6 sm:text-[24px] sm:leading-[32px]">
-            Let's Build It <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-          </button>
+          <AnimatedButton
+            type="submit"
+            showArrowAnimation
+            className="flex w-full items-center justify-center gap-3 rounded-full bg-primary py-5 font-headline text-[18px] leading-[26px] tracking-[-0.01em] font-semibold text-surface shadow-[0_18px_40px_rgba(255,255,255,0.12)] transition-colors hover:shadow-[0_24px_55px_rgba(255,255,255,0.18)] sm:py-6 sm:text-[24px] sm:leading-[32px]"
+          >
+            Let's Build It
+          </AnimatedButton>
         </form>
         <p className="mt-6 text-center font-label text-[10px] font-medium text-on-surface-dim/60 sm:mt-8 sm:text-xs">
           Send the basics now. We can collect photos, domain details, menu PDFs,

@@ -38,7 +38,11 @@ const projects = [
       "Designed a soft editorial layout that feels welcoming on mobile.",
       "Kept the code lean so the site loads quickly even on weak connections.",
     ],
-    outcomes: ["Faster mobile browsing", "Clearer hours + directions", "More local search visibility"],
+    outcomes: [
+      "Faster mobile browsing",
+      "Clearer hours + directions",
+      "More local search visibility",
+    ],
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
@@ -57,7 +61,11 @@ const projects = [
       "Separated services into clean blocks so visitors can self-select fast.",
       "Kept forms and calls to action consistent everywhere on the site.",
     ],
-    outcomes: ["Fewer dropped leads", "Stronger trust signals", "Cleaner quote flow"],
+    outcomes: [
+      "Fewer dropped leads",
+      "Stronger trust signals",
+      "Cleaner quote flow",
+    ],
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
@@ -76,7 +84,11 @@ const projects = [
       "Balanced service cards, pricing, and booking actions for fast decision-making.",
       "Made content easy to update so the owner can keep it current.",
     ],
-    outcomes: ["Clear booking flow", "Stronger visual polish", "Easy content updates"],
+    outcomes: [
+      "Clear booking flow",
+      "Stronger visual polish",
+      "Easy content updates",
+    ],
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
@@ -114,7 +126,11 @@ const projects = [
       "Organized insurance, services, and contact details into predictable blocks.",
       "Added SEO structure so nearby patients can actually find the office.",
     ],
-    outcomes: ["More accessible navigation", "Better local search structure", "Faster patient answers"],
+    outcomes: [
+      "More accessible navigation",
+      "Better local search structure",
+      "Faster patient answers",
+    ],
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
@@ -133,7 +149,11 @@ const projects = [
       "Kept location and contact info persistent for immediate action.",
       "Made the design modular so future promos and seasonal updates stay consistent.",
     ],
-    outcomes: ["Stronger storefront feel", "Easier seasonal updates", "Better local discovery"],
+    outcomes: [
+      "Stronger storefront feel",
+      "Easier seasonal updates",
+      "Better local discovery",
+    ],
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
@@ -502,7 +522,9 @@ const revealUpVariants = {
 };
 
 const CaseStudyImage = ({ src, alt, className = "" }) => (
-  <div className={`group relative overflow-hidden rounded-[20px] border border-white/10 bg-zinc-950 ${className}`}>
+  <div
+    className={`group relative overflow-hidden rounded-[20px] border border-white/10 bg-zinc-950 ${className}`}
+  >
     <motion.div
       className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.5)_100%)] z-10"
       initial={{ opacity: 0.2 }}
@@ -1207,7 +1229,10 @@ const WorkSection = () => {
         </div>
 
         <div className="overflow-hidden">
-          <motion.div layout className="hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-6 pr-0 sm:gap-6 sm:pb-8 md:pr-16">
+          <motion.div
+            layout
+            className="hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-6 pr-0 sm:gap-6 sm:pb-8 md:pr-16"
+          >
             <AnimatePresence initial={false}>
               {visibleProjects.map((project, index) => (
                 <motion.article
@@ -1260,10 +1285,18 @@ const WorkSection = () => {
 
                     <div className="mt-auto flex items-center justify-between gap-3 sm:gap-4">
                       <div className="flex gap-2">
-                        <LinkButton href={project.githubUrl} variant="outline" icon={Github}>
+                        <LinkButton
+                          href={project.githubUrl}
+                          variant="outline"
+                          icon={Github}
+                        >
                           <span className="sr-only">GitHub</span>
                         </LinkButton>
-                        <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
+                        <LinkButton
+                          href={project.liveUrl}
+                          variant="outline"
+                          icon={Globe2}
+                        >
                           <span className="sr-only">Live Site</span>
                         </LinkButton>
                       </div>
@@ -1293,7 +1326,7 @@ const WorkSection = () => {
                   )
                 }
                 showArrowAnimation
-                className="flex items-center gap-2 font-label text-[11px] font-bold text-primary transition-all hover:underline sm:text-xs"
+                className="flex items-center gap-2 font-label text-xs font-bold text-primary transition-all hover:underline sm:text-sm"
               >
                 Show More
               </AnimatedButton>
@@ -1347,10 +1380,16 @@ const ProjectModal = ({ project, onClose }) => (
               animate="visible"
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+                visible: {
+                  transition: { staggerChildren: 0.09, delayChildren: 0.05 },
+                },
               }}
             >
-              <motion.div variants={revealUpVariants} custom={0} className="space-y-3">
+              <motion.div
+                variants={revealUpVariants}
+                custom={0}
+                className="space-y-3"
+              >
                 <p className="font-label text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500 sm:text-xs">
                   {project.category}
                 </p>
@@ -1370,7 +1409,11 @@ const ProjectModal = ({ project, onClose }) => (
                 />
               </motion.div>
 
-              <motion.div variants={revealUpVariants} custom={0.1} className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+              <motion.div
+                variants={revealUpVariants}
+                custom={0.1}
+                className="grid gap-3 sm:grid-cols-2 sm:gap-4"
+              >
                 <div className="rounded-[20px] border border-white/10 bg-white/[0.03] p-4 sm:p-5">
                   <p className="font-label text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 sm:text-xs">
                     How I implement it
@@ -1402,7 +1445,8 @@ const ProjectModal = ({ project, onClose }) => (
                     ))}
                   </div>
                   <p className="mt-4 font-body text-[14px] leading-[22px] text-zinc-400 sm:text-[15px] sm:leading-[24px]">
-                    I keep the design system, spacing, and content flow repeatable so the site stays coherent when it grows.
+                    I keep the design system, spacing, and content flow
+                    repeatable so the site stays coherent when it grows.
                   </p>
                 </div>
               </motion.div>
@@ -1414,10 +1458,16 @@ const ProjectModal = ({ project, onClose }) => (
               animate="visible"
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.08, delayChildren: 0.12 } },
+                visible: {
+                  transition: { staggerChildren: 0.08, delayChildren: 0.12 },
+                },
               }}
             >
-              <motion.div variants={revealUpVariants} custom={0} className="rounded-[22px] border border-white/10 bg-white/[0.03] p-4 sm:p-5">
+              <motion.div
+                variants={revealUpVariants}
+                custom={0}
+                className="rounded-[22px] border border-white/10 bg-white/[0.03] p-4 sm:p-5"
+              >
                 <p className="font-label text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 sm:text-xs">
                   What makes it feel consistent
                 </p>
@@ -1437,7 +1487,11 @@ const ProjectModal = ({ project, onClose }) => (
                 </ul>
               </motion.div>
 
-              <motion.div variants={revealUpVariants} custom={0.08} className="overflow-hidden rounded-[22px] border border-white/10 bg-black/40">
+              <motion.div
+                variants={revealUpVariants}
+                custom={0.08}
+                className="overflow-hidden rounded-[22px] border border-white/10 bg-black/40"
+              >
                 <div className="border-b border-white/10 px-4 py-3 sm:px-5 sm:py-4">
                   <p className="font-label text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 sm:text-xs">
                     Implementation notes
@@ -1445,11 +1499,20 @@ const ProjectModal = ({ project, onClose }) => (
                 </div>
                 <div className="space-y-0">
                   {[
-                    ["Structure", "Clear hierarchy from hero to proof to action."],
+                    [
+                      "Structure",
+                      "Clear hierarchy from hero to proof to action.",
+                    ],
                     ["Motion", "Bottom-up reveals with soft spring timing."],
-                    ["Maintenance", "Easy to update without breaking the layout."],
+                    [
+                      "Maintenance",
+                      "Easy to update without breaking the layout.",
+                    ],
                   ].map(([label, value], index) => (
-                    <div key={label} className={`grid grid-cols-[0.9fr_1.1fr] gap-3 px-4 py-4 sm:px-5 ${index !== 2 ? "border-b border-white/10" : ""}`}>
+                    <div
+                      key={label}
+                      className={`grid grid-cols-[0.9fr_1.1fr] gap-3 px-4 py-4 sm:px-5 ${index !== 2 ? "border-b border-white/10" : ""}`}
+                    >
                       <span className="font-label text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">
                         {label}
                       </span>
@@ -1461,11 +1524,19 @@ const ProjectModal = ({ project, onClose }) => (
                 </div>
               </motion.div>
 
-              <motion.div variants={revealUpVariants} custom={0.16} className="flex flex-wrap gap-3">
+              <motion.div
+                variants={revealUpVariants}
+                custom={0.16}
+                className="flex flex-wrap gap-3"
+              >
                 <LinkButton href={project.githubUrl} icon={Github}>
                   GitHub
                 </LinkButton>
-                <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
+                <LinkButton
+                  href={project.liveUrl}
+                  variant="outline"
+                  icon={Globe2}
+                >
                   Live Site
                 </LinkButton>
               </motion.div>

@@ -462,7 +462,7 @@ const HomeSection = ({ onCta }) => (
             {[
               "Free custom build",
               "$30 monthly care",
-              "Updates by text",
+              "SEO-ready from day one",
               "No contract",
             ].map((item) => (
               <div
@@ -491,9 +491,22 @@ const HomeSection = ({ onCta }) => (
 
 const HowItWorksSection = () => {
   const steps = [
-    ["You reach out", "Tell us about your business. Takes 5 minutes."],
-    ["We build your site", "Custom, hand-coded, ready in 1–2 weeks. Free."],
-    ["We keep it running", "$30/month. Cancel anytime."],
+    [
+      "Step 01 – You tell us what you need",
+      "Share your business details and what you want on your site. Takes about 5 minutes.",
+    ],
+    [
+      "Step 02 – We design it, you approve",
+      "We create a custom design mockup. You review it, give feedback, and approve before we write a single line of code.",
+    ],
+    [
+      "Step 03 – We build and deliver",
+      "Once you approve the design, we hand-code your full site and deliver it in 1–2 weeks. Free.",
+    ],
+    [
+      "Step 04 – We keep it running",
+      "$30/month. Hosting, security, Fast-loading, and a real person to text. Cancel anytime.",
+    ],
   ];
   const details = [
     "Mobile-first layout",
@@ -507,7 +520,7 @@ const HowItWorksSection = () => {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-6 items-start">
         <div className="lg:col-span-6 space-y-8 sm:space-y-12">
           <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary sm:text-[44px] sm:leading-[50px] md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold max-w-xl">
-            <RevealLine>Three Steps.</RevealLine>
+            <RevealLine>Four Steps.</RevealLine>
             <RevealLine delay={0.08}>Zero Stress.</RevealLine>
           </h1>
           <FadeIn delay={0.18}>
@@ -576,18 +589,7 @@ const HowItWorksSection = () => {
               ))}
             </div>
           </div>
-          <FadeIn delay={0.34}>
-            <div className="mt-16 pt-10 border-t border-outline-subtle/10 sm:mt-20 sm:pt-12">
-              <span className="font-label text-[11px] font-medium text-primary tracking-[0.2em] uppercase sm:text-xs">
-                What happens after launch
-              </span>
-              <p className="mt-5 font-body text-[16px] leading-[26px] text-on-surface opacity-80 sm:mt-6 sm:text-[18px] sm:leading-[28px]">
-                You keep one point of contact for fixes, content changes,
-                security, analytics, and hosting. No plugin pile-up. No page
-                builder bills. No guessing who to call.
-              </p>
-            </div>
-          </FadeIn>
+
         </div>
       </div>
     </SectionShell>

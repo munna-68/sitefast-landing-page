@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -16,64 +16,71 @@ import {
   SlidersHorizontal,
   Sparkles,
   Tag,
+  User,
   X,
-} from 'lucide-react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
-import Lenis from 'lenis';
+} from "lucide-react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import Lenis from "lenis";
 
-const tabs = ['Home', 'How It Works', 'Pricing', 'Work', 'Contact'];
+const tabs = ["Home", "How It Works", "Pricing", "Work", "Contact"];
 
 const projects = [
   {
-    title: 'Local Cafe Refresh',
-    description: 'A warm, fast site for a neighborhood cafe with menus, hours, and mobile-first directions.',
+    title: "Local Cafe Refresh",
+    description:
+      "A warm, fast site for a neighborhood cafe with menus, hours, and mobile-first directions.",
     fullDescription:
-      'A compact business site built to help regulars check hours quickly and help new customers find the cafe from local search.',
+      "A compact business site built to help regulars check hours quickly and help new customers find the cafe from local search.",
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
   },
   {
-    title: 'Contractor Quote Site',
-    description: 'A lead-focused website for a home services company with clear service pages and calls to action.',
+    title: "Contractor Quote Site",
+    description:
+      "A lead-focused website for a home services company with clear service pages and calls to action.",
     fullDescription:
-      'A hand-coded site structured around service areas, trust signals, and a simple request flow for homeowners.',
+      "A hand-coded site structured around service areas, trust signals, and a simple request flow for homeowners.",
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
   },
   {
-    title: 'Salon Booking Launch',
-    description: 'A polished salon site designed around services, pricing, photos, and booking links.',
+    title: "Salon Booking Launch",
+    description:
+      "A polished salon site designed around services, pricing, photos, and booking links.",
     fullDescription:
-      'A clean launch site for a service business that needed credibility, fast mobile performance, and easy updates.',
+      "A clean launch site for a service business that needed credibility, fast mobile performance, and easy updates.",
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
   },
   {
-    title: 'Fitness Coach Brand',
-    description: 'A bold personal brand site with programs, testimonials, and a direct inquiry path.',
+    title: "Fitness Coach Brand",
+    description:
+      "A bold personal brand site with programs, testimonials, and a direct inquiry path.",
     fullDescription:
-      'A conversion-minded site for a solo operator who needed a memorable first impression and low-friction leads.',
+      "A conversion-minded site for a solo operator who needed a memorable first impression and low-friction leads.",
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
   },
   {
-    title: 'Dental Office Starter',
-    description: 'A calm, trustworthy local site for services, insurance details, and patient contact.',
+    title: "Dental Office Starter",
+    description:
+      "A calm, trustworthy local site for services, insurance details, and patient contact.",
     fullDescription:
-      'A practical healthcare-adjacent marketing site with accessible content structure and local SEO basics.',
+      "A practical healthcare-adjacent marketing site with accessible content structure and local SEO basics.",
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
   },
   {
-    title: 'Boutique Retail Site',
-    description: 'A sharp storefront presence with product highlights, location details, and social proof.',
+    title: "Boutique Retail Site",
+    description:
+      "A sharp storefront presence with product highlights, location details, and social proof.",
     fullDescription:
-      'A visual business site for a retail shop that needed better local discovery without maintaining a large catalog.',
+      "A visual business site for a retail shop that needed better local discovery without maintaining a large catalog.",
     videoSrc: null,
     githubUrl: null,
     liveUrl: null,
@@ -82,24 +89,24 @@ const projects = [
 
 const processSteps = [
   {
-    title: 'Requirements',
+    title: "Requirements",
     text: "Understand the client's business, goals, and what they need from their website",
   },
   {
-    title: 'Design',
-    text: 'Build the full design in Figma, present it to the client, and iterate until they approve',
+    title: "Design",
+    text: "Build the full design in Figma, present it to the client, and iterate until they approve",
   },
   {
-    title: 'Development',
-    text: 'Convert the approved Figma design into clean, hand-coded React/Next.js',
+    title: "Development",
+    text: "Convert the approved Figma design into clean, hand-coded React/Next.js",
   },
   {
-    title: 'Optimization',
-    text: 'Performance tuning, SEO setup, accessibility checks, mobile responsiveness, and code cleanup before launch',
+    title: "Optimization",
+    text: "Performance tuning, SEO setup, accessibility checks, mobile responsiveness, and code cleanup before launch",
   },
   {
-    title: 'Handoff & Maintenance',
-    text: 'Site goes live, client gets their domain, ongoing $30/month support begins',
+    title: "Handoff & Maintenance",
+    text: "Site goes live, client gets their domain, ongoing $30/month support begins",
   },
 ];
 
@@ -115,7 +122,7 @@ const PreloaderContext = React.createContext({ startReveal: false });
 
 // 1. Scramble & Glitch Text Component
 const ScrambleText = ({ text, startGlitchOut }) => {
-  const [display, setDisplay] = useState(text.replace(/./g, " ")); 
+  const [display, setDisplay] = useState(text.replace(/./g, " "));
   const chars = "!@#$%^&*()_+-=[]{}|;':,./<>?";
 
   useEffect(() => {
@@ -128,13 +135,13 @@ const ScrambleText = ({ text, startGlitchOut }) => {
             if (index < iteration) return text[index];
             return chars[Math.floor(Math.random() * chars.length)];
           })
-          .join("")
+          .join(""),
       );
 
       if (iteration >= text.length) {
         clearInterval(interval);
       }
-      iteration += 0.25; 
+      iteration += 0.25;
     }, 40);
 
     return () => clearInterval(interval);
@@ -157,11 +164,18 @@ const ScrambleText = ({ text, startGlitchOut }) => {
             "-5px 0px 0px rgba(255,0,0,0.8), 5px 0px 0px rgba(0,255,255,0.8)",
             "0px 0px 0px rgba(0,0,0,1)",
             "6px 3px 0px rgba(255,0,0,0.8), -6px -3px 0px rgba(0,255,255,0.8)",
-            "0px 0px 0px rgba(0,0,0,0)"
+            "0px 0px 0px rgba(0,0,0,0)",
           ],
-          filter: ["blur(0px)", "blur(0px)", "blur(3px)", "blur(0px)", "blur(5px)", "blur(12px)"],
-          transition: { duration: 0.6, ease: "linear" }
-        }
+          filter: [
+            "blur(0px)",
+            "blur(0px)",
+            "blur(3px)",
+            "blur(0px)",
+            "blur(5px)",
+            "blur(12px)",
+          ],
+          transition: { duration: 0.6, ease: "linear" },
+        },
       }}
     >
       {display}
@@ -173,7 +187,7 @@ const ScrambleText = ({ text, startGlitchOut }) => {
 const Preloader = ({ onReveal, onComplete }) => {
   const [startGlitchOut, setStartGlitchOut] = useState(false);
   const [columnCount, setColumnCount] = useState(10);
-  
+
   useEffect(() => {
     const updateColumns = () => {
       if (window.innerWidth < 640) {
@@ -183,12 +197,12 @@ const Preloader = ({ onReveal, onComplete }) => {
       }
     };
     updateColumns();
-    window.addEventListener('resize', updateColumns);
-    return () => window.removeEventListener('resize', updateColumns);
+    window.addEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateColumns);
   }, []);
 
   const middle = (columnCount - 1) / 2;
-  const getDelay = (i) => 2.2 + (Math.abs(i - middle) * 0.06);
+  const getDelay = (i) => 2.2 + Math.abs(i - middle) * 0.06;
 
   useEffect(() => {
     const glitchTimer = setTimeout(() => setStartGlitchOut(true), 1500);
@@ -206,18 +220,29 @@ const Preloader = ({ onReveal, onComplete }) => {
     <motion.div className="fixed inset-0 z-50 flex pointer-events-none">
       <div className="absolute inset-0 flex w-full h-full">
         {Array.from({ length: columnCount }).map((_, i) => (
-          <div key={i} className="relative flex-1 h-full overflow-hidden scale-x-[1.02] origin-center">
+          <div
+            key={i}
+            className="relative flex-1 h-full overflow-hidden scale-x-[1.02] origin-center"
+          >
             <motion.div
               className="absolute top-0 left-0 w-full h-[calc(50%+1px)] bg-[#f6f6f6]"
               initial={{ y: "0%" }}
               animate={{ y: "-100%" }}
-              transition={{ duration: 1.2, delay: getDelay(i), ease: [0.85, 0, 0.15, 1] }}
+              transition={{
+                duration: 1.2,
+                delay: getDelay(i),
+                ease: [0.85, 0, 0.15, 1],
+              }}
             />
             <motion.div
               className="absolute bottom-0 left-0 w-full h-[calc(50%+1px)] bg-[#f6f6f6]"
               initial={{ y: "0%" }}
               animate={{ y: "100%" }}
-              transition={{ duration: 1.2, delay: getDelay(i), ease: [0.85, 0, 0.15, 1] }}
+              transition={{
+                duration: 1.2,
+                delay: getDelay(i),
+                ease: [0.85, 0, 0.15, 1],
+              }}
             />
           </div>
         ))}
@@ -229,7 +254,7 @@ const Preloader = ({ onReveal, onComplete }) => {
   );
 };
 
-const FadeIn = ({ children, delay = 0, y = 24, className = '' }) => {
+const FadeIn = ({ children, delay = 0, y = 24, className = "" }) => {
   const { startReveal } = React.useContext(PreloaderContext);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
@@ -241,7 +266,11 @@ const FadeIn = ({ children, delay = 0, y = 24, className = '' }) => {
       ref={ref}
       initial={{ opacity: 0, y }}
       animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: delay + 0.25 }}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: delay + 0.25,
+      }}
       className={className}
     >
       {children}
@@ -249,7 +278,7 @@ const FadeIn = ({ children, delay = 0, y = 24, className = '' }) => {
   );
 };
 
-const RevealLine = ({ children, delay = 0, className = '' }) => {
+const RevealLine = ({ children, delay = 0, className = "" }) => {
   const { startReveal } = React.useContext(PreloaderContext);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
@@ -260,9 +289,13 @@ const RevealLine = ({ children, delay = 0, className = '' }) => {
     <span ref={ref} className="block overflow-hidden pb-2 -mb-2">
       <motion.span
         className={`block ${className}`}
-        initial={{ y: '100%', rotate: 2 }}
-        animate={shouldAnimate ? { y: 0, rotate: 0 } : { y: '100%', rotate: 2 }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: delay + 0.25 }}
+        initial={{ y: "100%", rotate: 2 }}
+        animate={shouldAnimate ? { y: 0, rotate: 0 } : { y: "100%", rotate: 2 }}
+        transition={{
+          duration: 1.0,
+          ease: [0.16, 1, 0.3, 1],
+          delay: delay + 0.25,
+        }}
       >
         {children}
       </motion.span>
@@ -270,7 +303,7 @@ const RevealLine = ({ children, delay = 0, className = '' }) => {
   );
 };
 
-const AnimatedLine = ({ children, text, delay = 0, className = '' }) => {
+const AnimatedLine = ({ children, text, delay = 0, className = "" }) => {
   const { startReveal } = React.useContext(PreloaderContext);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
@@ -281,11 +314,15 @@ const AnimatedLine = ({ children, text, delay = 0, className = '' }) => {
     <div ref={ref} className={`overflow-hidden ${className}`}>
       <motion.div
         initial={{ y: "100%", opacity: 0, rotate: 3 }}
-        animate={shouldAnimate ? { y: "0%", opacity: 1, rotate: 0 } : { y: "100%", opacity: 0, rotate: 3 }}
-        transition={{ 
-          duration: 1.2, 
-          delay: delay + 0.25, 
-          ease: [0.16, 1, 0.3, 1] 
+        animate={
+          shouldAnimate
+            ? { y: "0%", opacity: 1, rotate: 0 }
+            : { y: "100%", opacity: 0, rotate: 3 }
+        }
+        transition={{
+          duration: 1.2,
+          delay: delay + 0.25,
+          ease: [0.16, 1, 0.3, 1],
         }}
         className="block origin-bottom-left"
       >
@@ -295,19 +332,21 @@ const AnimatedLine = ({ children, text, delay = 0, className = '' }) => {
   );
 };
 
-const SectionShell = ({ children, className = '' }) => (
+const SectionShell = ({ children, className = "" }) => (
   <section
     data-section-scroll
     className={`min-h-full h-full px-4 pt-20 pb-24 overflow-y-auto sm:px-6 sm:pt-24 sm:pb-28 lg:px-10 ${className}`}
   >
-    <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col justify-center">{children}</div>
+    <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col justify-center">
+      {children}
+    </div>
   </section>
 );
 
 const VideoPlaceholder = ({ src, large = false }) => (
   <div
     className={`relative aspect-video w-full overflow-hidden rounded-md border border-white/15 bg-zinc-950 ${
-      large ? 'shadow-2xl shadow-black/40' : ''
+      large ? "shadow-2xl shadow-black/40" : ""
     }`}
   >
     {src ? (
@@ -317,18 +356,20 @@ const VideoPlaceholder = ({ src, large = false }) => (
         <div className="grid h-12 w-12 place-items-center rounded-full border border-white/20 bg-black/40">
           <Play className="h-5 w-5 fill-white text-white" />
         </div>
-        <span className="text-xs uppercase tracking-[0.22em] text-zinc-500">Video coming soon</span>
+        <span className="text-xs uppercase tracking-[0.22em] text-zinc-500">
+          Video coming soon
+        </span>
       </div>
     )}
   </div>
 );
 
-const LinkButton = ({ href, children, variant = 'solid', icon: Icon }) => {
+const LinkButton = ({ href, children, variant = "solid", icon: Icon }) => {
   const disabled = !href;
   const classes =
-    variant === 'solid'
-      ? 'bg-white text-black hover:bg-zinc-200'
-      : 'border border-white/20 text-white hover:border-white/60 hover:bg-white/5';
+    variant === "solid"
+      ? "bg-white text-black hover:bg-zinc-200"
+      : "border border-white/20 text-white hover:border-white/60 hover:bg-white/5";
 
   if (disabled) {
     return (
@@ -364,7 +405,9 @@ const HomeSection = ({ onCta }) => (
       <div className="relative z-10 lg:col-span-7 flex flex-col justify-center space-y-8 sm:space-y-12 mb-16 lg:mb-0">
         <div className="inline-flex w-fit items-center gap-2 rounded-full border border-outline-subtle/20 bg-surface-low px-3 py-1.5 sm:px-4">
           <Sparkles className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" />
-          <span className="font-label text-[10px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">SiteKeep</span>
+          <span className="font-label text-[10px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">
+            SiteKeep
+          </span>
         </div>
         <h1 className="max-w-5xl font-headline text-[36px] font-bold leading-[42px] tracking-[-0.02em] text-primary sm:text-[44px] sm:leading-[50px] md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
           <RevealLine>We Build</RevealLine>
@@ -373,7 +416,8 @@ const HomeSection = ({ onCta }) => (
         </h1>
         <FadeIn delay={0.18}>
           <p className="max-w-xl font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
-            Seriously. No setup fee, no hidden costs. Just $30/month to keep it running, secure, and updated — forever.
+            Seriously. No setup fee, no hidden costs. Just $30/month to keep it
+            running, secure, and updated — forever.
           </p>
         </FadeIn>
         <FadeIn delay={0.28}>
@@ -387,13 +431,18 @@ const HomeSection = ({ onCta }) => (
         <FadeIn delay={0.34}>
           <dl className="mt-6 grid grid-cols-3 border-y border-outline-subtle/10 py-4 font-label text-[10px] font-medium uppercase tracking-[0.05em] sm:mt-10 sm:py-5 sm:text-xs">
             {[
-              ['Setup', '$0'],
-              ['Care plan', '$30/mo'],
-              ['Contract', 'None'],
+              ["Setup", "$0"],
+              ["Care plan", "$30/mo"],
+              ["Contract", "None"],
             ].map(([label, value]) => (
-              <div key={label} className="border-r border-outline-subtle/10 px-2 first:pl-0 last:border-r-0 sm:px-4">
+              <div
+                key={label}
+                className="border-r border-outline-subtle/10 px-2 first:pl-0 last:border-r-0 sm:px-4"
+              >
                 <dt className="text-on-surface-dim">{label}</dt>
-                <dd className="mt-1 font-headline text-sm font-extrabold normal-case tracking-normal text-primary sm:text-base">{value}</dd>
+                <dd className="mt-1 font-headline text-sm font-extrabold normal-case tracking-normal text-primary sm:text-base">
+                  {value}
+                </dd>
               </div>
             ))}
           </dl>
@@ -402,21 +451,36 @@ const HomeSection = ({ onCta }) => (
       <FadeIn delay={0.25} className="hidden lg:block lg:col-span-5">
         <div className="w-full rounded-lg border border-outline-subtle/10 bg-surface-low p-8 md:p-12">
           <div className="mb-8 flex items-baseline justify-between">
-            <h2 className="max-w-xs font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">A quieter way to buy a business website.</h2>
-            <span className="hidden font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim opacity-50 sm:block">Operating model</span>
+            <h2 className="max-w-xs font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">
+              A quieter way to buy a business website.
+            </h2>
+            <span className="hidden font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim opacity-50 sm:block">
+              Operating model
+            </span>
           </div>
           <div className="space-y-0">
-            {['Free custom build', '$30 monthly care', 'Updates by text', 'No contract'].map((item) => (
-              <div key={item} className="group flex items-center justify-between border-b border-outline-subtle/10 py-6 last:border-b-0">
-                <span className="font-body text-[18px] leading-[28px] text-on-surface transition-colors group-hover:text-primary">{item}</span>
+            {[
+              "Free custom build",
+              "$30 monthly care",
+              "Updates by text",
+              "No contract",
+            ].map((item) => (
+              <div
+                key={item}
+                className="group flex items-center justify-between border-b border-outline-subtle/10 py-6 last:border-b-0"
+              >
+                <span className="font-body text-[18px] leading-[28px] text-on-surface transition-colors group-hover:text-primary">
+                  {item}
+                </span>
                 <Check className="h-5 w-5 text-primary" />
               </div>
             ))}
           </div>
           <div className="mt-10 rounded-lg border border-outline-subtle/5 bg-surface-mid p-6">
             <p className="font-body text-[16px] leading-[24px] italic text-on-surface-dim">
-              Built for small teams that want a real website without a big invoice, a platform maze, or a handoff that
-              leaves them alone when something breaks.
+              Built for small teams that want a real website without a big
+              invoice, a platform maze, or a handoff that leaves them alone when
+              something breaks.
             </p>
           </div>
         </div>
@@ -427,11 +491,16 @@ const HomeSection = ({ onCta }) => (
 
 const HowItWorksSection = () => {
   const steps = [
-    ['You reach out', 'Tell us about your business. Takes 5 minutes.'],
-    ['We build your site', 'Custom, hand-coded, ready in 1–2 weeks. Free.'],
-    ['We keep it running', '$30/month. Cancel anytime.'],
+    ["You reach out", "Tell us about your business. Takes 5 minutes."],
+    ["We build your site", "Custom, hand-coded, ready in 1–2 weeks. Free."],
+    ["We keep it running", "$30/month. Cancel anytime."],
   ];
-  const details = ['Mobile-first layout', 'Local SEO basics', 'Fast hosting setup', 'Simple update requests'];
+  const details = [
+    "Mobile-first layout",
+    "Local SEO basics",
+    "Fast hosting setup",
+    "Simple update requests",
+  ];
 
   return (
     <SectionShell>
@@ -443,12 +512,16 @@ const HowItWorksSection = () => {
           </h1>
           <FadeIn delay={0.18}>
             <div className="space-y-5 border border-outline-subtle/10 bg-surface-low/50 p-6 backdrop-blur-sm sm:space-y-6 sm:p-8 md:p-12">
-              <h3 className="font-headline text-[20px] font-semibold leading-[28px] tracking-[-0.01em] text-primary sm:text-[24px] sm:leading-[32px]">Why Would We Build It For Free?</h3>
+              <h3 className="font-headline text-[20px] font-semibold leading-[28px] tracking-[-0.01em] text-primary sm:text-[24px] sm:leading-[32px]">
+                Why Would We Build It For Free?
+              </h3>
               <p className="font-body text-[15px] leading-[24px] text-on-surface-dim opacity-90 sm:text-[16px] sm:leading-[24px]">
-                Honest answer: we don't make money upfront. We build your site at no charge and only start earning after
-                you've been with us for about two years. That means we're motivated to build something you actually love
-                and keep you around — not take your money and disappear. No contract. No gotcha. Just a handshake deal
-                that works for both of us.
+                Honest answer: we don't make money upfront. We build your site
+                at no charge and only start earning after you've been with us
+                for about two years. That means we're motivated to build
+                something you actually love and keep you around — not take your
+                money and disappear. No contract. No gotcha. Just a handshake
+                deal that works for both of us.
               </p>
             </div>
           </FadeIn>
@@ -461,11 +534,13 @@ const HowItWorksSection = () => {
                   <div
                     key={item}
                     className={`p-4 flex items-center gap-3 border-outline-subtle/10 sm:p-6 sm:gap-4 ${
-                      isTopRow ? 'border-b sm:border-b-0' : ''
-                    } ${isLeftCol ? 'sm:border-r' : ''}`}
+                      isTopRow ? "border-b sm:border-b-0" : ""
+                    } ${isLeftCol ? "sm:border-r" : ""}`}
                   >
                     <Check className="h-4 w-4 text-primary flex-shrink-0 sm:h-5 sm:w-5" />
-                    <span className="font-label text-[11px] font-medium uppercase tracking-wider text-on-surface-dim sm:text-xs">{item}</span>
+                    <span className="font-label text-[11px] font-medium uppercase tracking-wider text-on-surface-dim sm:text-xs">
+                      {item}
+                    </span>
                   </div>
                 );
               })}
@@ -479,14 +554,22 @@ const HowItWorksSection = () => {
               {steps.map(([title, text], index) => (
                 <FadeIn key={title} delay={index * 0.1}>
                   <div className="relative flex gap-6 sm:gap-8 md:gap-12 group">
-                    <div className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 ${index === 2 ? 'bg-primary' : 'bg-surface-high'} border border-outline-subtle/10 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-105`}>
-                      <span className={`font-headline text-[32px] leading-[40px] tracking-[-0.02em] font-extrabold sm:text-[40px] sm:leading-[48px] md:text-[48px] md:leading-[56px] ${index === 2 ? 'text-surface' : 'text-primary'}`}>
+                    <div
+                      className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 ${index === 2 ? "bg-primary" : "bg-surface-high"} border border-outline-subtle/10 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-105`}
+                    >
+                      <span
+                        className={`font-headline text-[32px] leading-[40px] tracking-[-0.02em] font-extrabold sm:text-[40px] sm:leading-[48px] md:text-[48px] md:leading-[56px] ${index === 2 ? "text-surface" : "text-primary"}`}
+                      >
                         0{index + 1}
                       </span>
                     </div>
                     <div className="flex-grow pt-2 sm:pt-4">
-                      <h4 className="font-headline text-[18px] font-semibold leading-[26px] tracking-[-0.01em] text-primary mb-2 sm:text-[24px] sm:leading-[32px]">{title}</h4>
-                      <p className="font-body text-[15px] leading-[24px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">{text}</p>
+                      <h4 className="font-headline text-[18px] font-semibold leading-[26px] tracking-[-0.01em] text-primary mb-2 sm:text-[24px] sm:leading-[32px]">
+                        {title}
+                      </h4>
+                      <p className="font-body text-[15px] leading-[24px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
+                        {text}
+                      </p>
                     </div>
                   </div>
                 </FadeIn>
@@ -495,10 +578,13 @@ const HowItWorksSection = () => {
           </div>
           <FadeIn delay={0.34}>
             <div className="mt-16 pt-10 border-t border-outline-subtle/10 sm:mt-20 sm:pt-12">
-              <span className="font-label text-[11px] font-medium text-primary tracking-[0.2em] uppercase sm:text-xs">What happens after launch</span>
+              <span className="font-label text-[11px] font-medium text-primary tracking-[0.2em] uppercase sm:text-xs">
+                What happens after launch
+              </span>
               <p className="mt-5 font-body text-[16px] leading-[26px] text-on-surface opacity-80 sm:mt-6 sm:text-[18px] sm:leading-[28px]">
-                You keep one point of contact for fixes, content changes, security, analytics, and hosting. No plugin
-                pile-up. No page builder bills. No guessing who to call.
+                You keep one point of contact for fixes, content changes,
+                security, analytics, and hosting. No plugin pile-up. No page
+                builder bills. No guessing who to call.
               </p>
             </div>
           </FadeIn>
@@ -509,121 +595,189 @@ const HowItWorksSection = () => {
 };
 
 const PricingSection = () => {
-  const [activeComparison, setActiveComparison] = useState('wix');
+  const [activeComparison, setActiveComparison] = useState("wix");
 
   const rows = [
-    { label: 'Setup Cost', icon: Tag, values: ['$0', '$0', '$2,000–$10,000'] },
-    { label: 'Monthly Cost', icon: Calendar, values: ['$30', '$16–$45', '$100–$500'] },
-    { label: 'Custom Built', icon: Code2, values: ['Yes', 'No', 'Yes'] },
-    { label: 'Ongoing Support', icon: Headphones, values: ['Yes', 'No', 'Rarely'] },
-    { label: 'You Own the Domain', icon: Globe2, values: ['Yes', 'Yes', 'Sometimes'] },
-    { label: 'SEO Optimized', icon: Search, values: ['Yes', 'Basic', 'Yes'] },
+    {
+      label: "Setup Cost",
+      icon: Tag,
+      siteKeep: "$0",
+      wix: "$0",
+      agency: "$2,000-$10,000",
+    },
+    {
+      label: "Monthly Cost",
+      icon: Calendar,
+      siteKeep: "$30",
+      wix: "$16-$45",
+      agency: "$100-$500",
+    },
+    {
+      label: "Custom Built",
+      icon: Code2,
+      siteKeep: "Yes",
+      wix: "No",
+      agency: "Yes",
+    },
+    {
+      label: "Ongoing Support",
+      icon: Headphones,
+      siteKeep: "Yes",
+      wix: "No",
+      agency: "Rarely",
+    },
+    {
+      label: "You Own the Domain",
+      icon: Globe2,
+      siteKeep: "Yes",
+      wix: "Yes",
+      agency: "Sometimes",
+    },
+    {
+      label: "SEO Optimized",
+      icon: Search,
+      siteKeep: "Yes",
+      wix: "Basic",
+      agency: "Yes",
+    },
   ];
 
-  const competitorIndex = activeComparison === 'wix' ? 1 : 2;
-  const competitorName = activeComparison === 'wix' ? 'Wix/Squarespace' : 'Agency';
+  const competitorLabel =
+    activeComparison === "wix" ? "Wix/Squarespace" : "Agency";
+  const competitorKey = activeComparison;
 
   return (
     <SectionShell>
-      <div className="flex flex-col">
-        {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary sm:text-[40px] sm:leading-[46px] md:text-[56px] md:leading-[62px]">
-            Your $30/Month<br />Keeps Everything Running
-          </h1>
-          <p className="mt-3 text-[15px] text-zinc-400 sm:mt-4 sm:text-[16px]">See how SiteKeep compares.</p>
+      <div className="mx-auto flex w-full max-w-[560px] flex-col pb-2">
+        <div className="mb-7 flex items-start justify-between gap-3">
+          <p className="pt-1 text-[13px] font-medium text-zinc-400">
+            Free build. $30/month care.
+          </p>
+          <div className="rounded-full border border-white/10 bg-white/[0.06] px-5 py-2 text-[18px] font-semibold leading-none text-white shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+            $0 setup
+          </div>
         </div>
 
-        {/* Comparison Toggle Tabs */}
-        <FadeIn delay={0.1}>
-          <div className="mb-6 flex gap-2 sm:mb-8">
+        <div className="mb-5">
+          <h1 className="max-w-[18ch] font-headline text-[44px] font-extrabold leading-[0.98] tracking-[-0.03em] text-white sm:text-[56px]">
+            Your $30/Month Keeps Everything Running
+          </h1>
+          <p className="mt-4 text-[20px] leading-[1.2] text-zinc-400">
+            See how SiteKeep compares.
+          </p>
+        </div>
+
+        <FadeIn delay={0.08}>
+          <div className="relative mb-7 flex rounded-[30px] border border-white/10 bg-black/70 p-1 shadow-[0_20px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm">
             <button
-              onClick={() => setActiveComparison('wix')}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-full border px-4 py-3 text-[13px] font-medium transition-all sm:flex-none sm:px-6 sm:text-[14px] ${
-                activeComparison === 'wix'
-                  ? 'border-white/20 bg-white/[0.08] text-white'
-                  : 'border-white/10 bg-transparent text-zinc-500 hover:border-white/15 hover:text-zinc-300'
+              onClick={() => setActiveComparison("wix")}
+              className={`relative z-10 inline-flex w-1/2 items-center justify-center gap-2 rounded-full px-3 py-4 text-[16px] font-semibold tracking-[-0.01em] transition-colors ${
+                activeComparison === "wix" ? "text-white" : "text-zinc-400"
               }`}
             >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M3 9h18M9 3v18" />
-              </svg>
+              {activeComparison === "wix" && (
+                <motion.div
+                  layoutId="pricingComparisonPill"
+                  transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                  className="absolute inset-[2px] -z-10 rounded-full border border-white/15 bg-white/[0.07]"
+                />
+              )}
+              <Globe2 className="h-[18px] w-[18px]" />
               vs Wix/Squarespace
             </button>
             <button
-              onClick={() => setActiveComparison('agency')}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-full border px-4 py-3 text-[13px] font-medium transition-all sm:flex-none sm:px-6 sm:text-[14px] ${
-                activeComparison === 'agency'
-                  ? 'border-white/20 bg-white/[0.08] text-white'
-                  : 'border-white/10 bg-transparent text-zinc-500 hover:border-white/15 hover:text-zinc-300'
+              onClick={() => setActiveComparison("agency")}
+              className={`relative z-10 inline-flex w-1/2 items-center justify-center gap-2 rounded-full px-3 py-4 text-[16px] font-semibold tracking-[-0.01em] transition-colors ${
+                activeComparison === "agency" ? "text-white" : "text-zinc-400"
               }`}
             >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7" />
-              </svg>
+              {activeComparison === "agency" && (
+                <motion.div
+                  layoutId="pricingComparisonPill"
+                  transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                  className="absolute inset-[2px] -z-10 rounded-full border border-white/15 bg-white/[0.07]"
+                />
+              )}
+              <User className="h-[18px] w-[18px]" />
               vs Agency
             </button>
           </div>
         </FadeIn>
 
-        {/* Comparison Table */}
-        <FadeIn delay={0.15}>
-          <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-[1fr_auto_auto] border-b border-white/10 px-4 py-4 sm:px-6 sm:py-5">
-              <span className="text-[12px] font-medium text-zinc-500 uppercase tracking-wider">Feature</span>
-              <span className="text-center text-[13px] font-bold text-white sm:text-[14px]">SiteKeep<br /><span className="text-[11px] font-normal text-zinc-500">(You)</span></span>
-              <span className="text-center text-[13px] font-medium text-zinc-400 sm:text-[14px]">{competitorName}</span>
+        <FadeIn delay={0.14}>
+          <div className="overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(170deg,#111214_0%,#0a0a0c_100%)]">
+            <div className="grid grid-cols-[1.1fr_0.7fr_0.9fr] border-b border-white/10">
+              <span className="border-r border-white/10 px-4 py-4 text-[12px] font-semibold uppercase tracking-[0.08em] text-zinc-500">
+                Feature
+              </span>
+              <span className="border-r border-white/10 px-2 py-4 text-center text-[15px] font-bold leading-[1.1] text-white">
+                SiteKeep
+                <span className="block pt-1 text-[12px] font-medium text-zinc-500">
+                  (You)
+                </span>
+              </span>
+              <span className="px-2 py-4 text-center text-[15px] font-semibold leading-[1.15] text-zinc-300">
+                {competitorLabel}
+              </span>
             </div>
 
-            {/* Table Rows */}
             {rows.map((row, rowIndex) => {
               const Icon = row.icon;
               const isLast = rowIndex === rows.length - 1;
               return (
                 <div
                   key={row.label}
-                  className={`grid grid-cols-[1fr_auto_auto] items-center px-4 py-4 sm:px-6 sm:py-5 ${
-                    !isLast ? 'border-b border-white/[0.06]' : ''
+                  className={`grid grid-cols-[1.1fr_0.7fr_0.9fr] items-center ${
+                    !isLast ? "border-b border-white/[0.06]" : ""
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className="h-4 w-4 text-zinc-500 sm:h-[18px] sm:w-[18px]" />
-                    <span className="text-[14px] text-zinc-300 sm:text-[15px]">{row.label}</span>
+                  <div className="flex items-center gap-3 border-r border-white/10 px-4 py-4">
+                    <Icon className="h-4 w-4 shrink-0 text-zinc-500" />
+                    <span className="text-[16px] leading-[1.2] text-zinc-300">
+                      {row.label}
+                    </span>
                   </div>
-                  <span className="min-w-[60px] text-center text-[14px] font-bold text-white sm:min-w-[80px] sm:text-[15px]">
-                    {row.values[0]}
+                  <span className="border-r border-white/10 px-2 text-center text-[17px] font-bold text-white">
+                    {row.siteKeep}
                   </span>
-                  <span className="min-w-[60px] text-center text-[14px] text-zinc-500 sm:min-w-[80px] sm:text-[15px]">
-                    {row.values[competitorIndex]}
-                  </span>
+                  <motion.span
+                    key={`${row.label}-${competitorKey}`}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.22 }}
+                    className="px-2 text-center text-[17px] text-zinc-400"
+                  >
+                    {row[competitorKey]}
+                  </motion.span>
                 </div>
               );
             })}
           </div>
         </FadeIn>
 
-        {/* Summary Card */}
         <FadeIn delay={0.2}>
-          <div className="mt-6 rounded-2xl border border-white/10 bg-[#0f0f0f] p-5 sm:mt-8 sm:p-6">
+          <div className="mt-5 rounded-[18px] border border-white/10 bg-[linear-gradient(165deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] p-5 shadow-[0_24px_48px_rgba(0,0,0,0.28)]">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] sm:h-14 sm:w-14">
-                <svg className="h-6 w-6 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 2l8 4v6c0 5.25-3.5 9.74-8 11-4.5-1.26-8-5.75-8-11V6l8-4z" />
-                </svg>
+              <div className="mt-0.5 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/[0.04]">
+                <ShieldCheck className="h-6 w-6 text-zinc-200" />
               </div>
               <div>
-                <h3 className="text-[18px] font-semibold text-white sm:text-[20px]">All the essentials. One simple price.</h3>
+                <h3 className="text-[18px] font-semibold leading-[1.2] text-white sm:text-[20px]">
+                  All the essentials. One simple price.
+                </h3>
                 <p className="mt-1 text-[14px] leading-[22px] text-zinc-400 sm:text-[15px] sm:leading-[24px]">
-                  No hidden fees, no surprises.<br />
-                  Just a site that works—for $30/month.
+                  No hidden fees, no surprises.
+                  <br />
+                  Just a site that works - for $30/month.
                 </p>
               </div>
             </div>
           </div>
         </FadeIn>
+
+        <p className="mx-auto mt-4 text-[12px] text-zinc-600">
+          Pricing shown for small business brochure-style websites.
+        </p>
       </div>
     </SectionShell>
   );
@@ -643,20 +797,27 @@ const WorkSection = () => {
               Built for Businesses Like Yours
             </h1>
             <p className="font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
-              Every site is hand-coded from scratch. No templates, no page builders.
+              Every site is hand-coded from scratch. No templates, no page
+              builders.
             </p>
           </div>
         </div>
         <div className="mb-6 flex flex-wrap items-center gap-4 sm:mb-8 sm:gap-6 md:gap-12">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-dim/40">Filters</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-dim/40">
+            Filters
+          </span>
           <div className="flex flex-wrap gap-x-5 gap-y-3 sm:gap-x-8 sm:gap-y-4">
-            {['Small business sites', 'Service pages and lead forms', 'Launch plus monthly care'].map((item, index) => (
+            {[
+              "Small business sites",
+              "Service pages and lead forms",
+              "Launch plus monthly care",
+            ].map((item, index) => (
               <p
                 key={item}
                 className={`font-label text-[11px] font-medium transition-colors sm:text-xs ${
                   index === 0
-                    ? 'text-primary relative after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:bg-primary'
-                    : 'text-on-surface-dim/60 hover:text-primary'
+                    ? "text-primary relative after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:bg-primary"
+                    : "text-on-surface-dim/60 hover:text-primary"
                 }`}
               >
                 {item}
@@ -677,7 +838,10 @@ const WorkSection = () => {
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 18 }}
-                  transition={{ duration: 0.35, delay: index >= 3 ? (index - 3) * 0.05 : 0 }}
+                  transition={{
+                    duration: 0.35,
+                    delay: index >= 3 ? (index - 3) * 0.05 : 0,
+                  }}
                   className="group flex min-w-[85vw] snap-start flex-col overflow-hidden rounded-xl border border-outline-subtle/20 bg-surface-low transition-colors duration-300 hover:bg-surface-high sm:min-w-[70vw] md:min-w-[40%] lg:min-w-[38%]"
                 >
                   <div className="aspect-[16/10] overflow-hidden bg-surface-high">
@@ -692,10 +856,18 @@ const WorkSection = () => {
                     </p>
                     <div className="flex items-center justify-between gap-3 sm:gap-4">
                       <div className="flex gap-2">
-                        <LinkButton href={project.githubUrl} variant="outline" icon={Github}>
+                        <LinkButton
+                          href={project.githubUrl}
+                          variant="outline"
+                          icon={Github}
+                        >
                           <span className="sr-only">GitHub</span>
                         </LinkButton>
-                        <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
+                        <LinkButton
+                          href={project.liveUrl}
+                          variant="outline"
+                          icon={Globe2}
+                        >
                           <span className="sr-only">Live Site</span>
                         </LinkButton>
                       </div>
@@ -719,7 +891,11 @@ const WorkSection = () => {
                 <div className="h-1 w-6 rounded-full bg-outline-subtle/30 sm:w-8" />
               </div>
               <button
-                onClick={() => setVisibleCount((count) => Math.min(count + 3, projects.length))}
+                onClick={() =>
+                  setVisibleCount((count) =>
+                    Math.min(count + 3, projects.length),
+                  )
+                }
                 className="flex items-center gap-2 font-label text-[11px] font-bold text-primary transition-all hover:underline sm:text-xs"
               >
                 Show More <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -728,7 +904,10 @@ const WorkSection = () => {
           )}
         </div>
       </div>
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </SectionShell>
   );
 };
@@ -747,7 +926,7 @@ const ProjectModal = ({ project, onClose }) => (
           initial={{ opacity: 0, scale: 0.92, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 20 }}
-          transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+          transition={{ type: "spring", stiffness: 260, damping: 24 }}
           onClick={(event) => event.stopPropagation()}
           onWheel={(event) => event.stopPropagation()}
           onTouchStart={(event) => event.stopPropagation()}
@@ -766,28 +945,45 @@ const ProjectModal = ({ project, onClose }) => (
           <VideoPlaceholder src={project.videoSrc} large />
           <div className="mt-4 grid gap-4 sm:mt-6 sm:gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             <div>
-              <h3 className="text-2xl font-black sm:text-3xl">{project.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-zinc-300 sm:mt-3 sm:leading-7">{project.fullDescription || project.description}</p>
+              <h3 className="text-2xl font-black sm:text-3xl">
+                {project.title}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-zinc-300 sm:mt-3 sm:leading-7">
+                {project.fullDescription || project.description}
+              </p>
               <div className="mt-4 flex flex-wrap gap-2 sm:mt-5 sm:gap-3">
                 <LinkButton href={project.githubUrl} icon={Github}>
                   GitHub
                 </LinkButton>
-                <LinkButton href={project.liveUrl} variant="outline" icon={Globe2}>
+                <LinkButton
+                  href={project.liveUrl}
+                  variant="outline"
+                  icon={Globe2}
+                >
                   Live Site
                 </LinkButton>
               </div>
             </div>
             <div>
-              <h4 className="mb-3 text-lg font-black sm:mb-4 sm:text-xl">My Process</h4>
+              <h4 className="mb-3 text-lg font-black sm:mb-4 sm:text-xl">
+                My Process
+              </h4>
               <div className="grid gap-2 sm:gap-3">
                 {processSteps.map((step, index) => (
-                  <div key={step.title} className="grid grid-cols-[2rem_1fr] gap-2 sm:grid-cols-[2.5rem_1fr] sm:gap-3">
+                  <div
+                    key={step.title}
+                    className="grid grid-cols-[2rem_1fr] gap-2 sm:grid-cols-[2.5rem_1fr] sm:gap-3"
+                  >
                     <span className="grid h-7 w-7 place-items-center border border-white/20 bg-white text-xs font-black text-black sm:h-9 sm:w-9 sm:text-sm">
                       {index + 1}
                     </span>
                     <div className="border-b border-white/10 pb-2 sm:pb-3">
-                      <h5 className="text-sm font-black sm:text-base">{step.title}</h5>
-                      <p className="mt-0.5 text-xs leading-5 text-zinc-300 sm:mt-1 sm:text-sm sm:leading-6">{step.text}</p>
+                      <h5 className="text-sm font-black sm:text-base">
+                        {step.title}
+                      </h5>
+                      <p className="mt-0.5 text-xs leading-5 text-zinc-300 sm:mt-1 sm:text-sm sm:leading-6">
+                        {step.text}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -808,28 +1004,46 @@ const ContactSection = () => (
           Ready for Your Free Website?
         </h1>
         <p className="mx-auto max-w-2xl font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
-          Tell us a little about your business and we'll take it from there. No commitment, no credit card.
+          Tell us a little about your business and we'll take it from there. No
+          commitment, no credit card.
         </p>
       </div>
       <div className="grid grid-cols-1 gap-5 border-y border-outline-subtle/10 py-6 sm:gap-6 sm:py-8 md:grid-cols-3">
         {[
-          ['Reply time', 'Usually same day'],
-          ['First call', '15 minutes'],
-          ['Payment', 'Only after launch'],
+          ["Reply time", "Usually same day"],
+          ["First call", "15 minutes"],
+          ["Payment", "Only after launch"],
         ].map(([label, value], index) => (
-          <div key={label} className={`space-y-1 ${index === 1 ? 'border-y border-outline-subtle/10 py-5 md:border-y-0 md:border-x md:py-0' : ''}`}>
-            <p className="font-label text-[11px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">{label}</p>
-            <p className="font-headline text-[20px] font-semibold leading-[28px] tracking-[-0.01em] text-primary sm:text-[24px] sm:leading-[32px]">{value}</p>
+          <div
+            key={label}
+            className={`space-y-1 ${index === 1 ? "border-y border-outline-subtle/10 py-5 md:border-y-0 md:border-x md:py-0" : ""}`}
+          >
+            <p className="font-label text-[11px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">
+              {label}
+            </p>
+            <p className="font-headline text-[20px] font-semibold leading-[28px] tracking-[-0.01em] text-primary sm:text-[24px] sm:leading-[32px]">
+              {value}
+            </p>
           </div>
         ))}
       </div>
       <div className="relative overflow-hidden rounded-lg border border-outline-subtle/10 bg-surface-low p-5 text-left sm:p-8 md:p-12 group">
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/5 blur-3xl transition-transform duration-700 group-hover:scale-110" />
-        <form className="relative z-10 space-y-6 sm:space-y-8" onSubmit={(event) => event.preventDefault()}>
+        <form
+          className="relative z-10 space-y-6 sm:space-y-8"
+          onSubmit={(event) => event.preventDefault()}
+        >
           <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
-            {['Your Name', 'Business Name', 'Business Type', 'Phone or Email'].map((label) => (
+            {[
+              "Your Name",
+              "Business Name",
+              "Business Type",
+              "Phone or Email",
+            ].map((label) => (
               <div key={label} className="space-y-2 sm:space-y-3">
-                <label className="ml-1 block font-label text-[11px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">{label}</label>
+                <label className="ml-1 block font-label text-[11px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">
+                  {label}
+                </label>
                 <input
                   className="monolith-input w-full rounded-full border border-outline-subtle/10 bg-surface px-4 py-3 font-body text-[15px] leading-[24px] text-primary placeholder:text-outline/50 transition-all sm:px-6 sm:py-4 sm:text-[16px] sm:leading-[24px]"
                   placeholder={label}
@@ -842,8 +1056,8 @@ const ContactSection = () => (
           </button>
         </form>
         <p className="mt-6 text-center font-label text-[10px] font-medium text-on-surface-dim/60 sm:mt-8 sm:text-xs">
-          Send the basics now. We can collect photos, domain details, menu PDFs, service lists, and brand notes after we
-          know the business.
+          Send the basics now. We can collect photos, domain details, menu PDFs,
+          service lists, and brand notes after we know the business.
         </p>
       </div>
     </div>
@@ -853,7 +1067,7 @@ const ContactSection = () => (
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [startReveal, setStartReveal] = useState(false);
-  const [activeTab, setActiveTab] = useState('Home');
+  const [activeTab, setActiveTab] = useState("Home");
   const cooldownRef = useRef(false);
   const touchStartYRef = useRef(null);
   const touchScrollElRef = useRef(null);
@@ -866,7 +1080,10 @@ export default function App() {
   const moveByDirection = (direction) => {
     if (cooldownRef.current) return;
     const currentIndex = tabs.indexOf(activeTab);
-    const nextIndex = Math.min(Math.max(currentIndex + direction, 0), tabs.length - 1);
+    const nextIndex = Math.min(
+      Math.max(currentIndex + direction, 0),
+      tabs.length - 1,
+    );
     if (nextIndex === currentIndex) return;
 
     cooldownRef.current = true;
@@ -876,7 +1093,8 @@ export default function App() {
     }, 800);
   };
 
-  const getScrollElement = (target) => target?.closest?.('[data-section-scroll]');
+  const getScrollElement = (target) =>
+    target?.closest?.("[data-section-scroll]");
 
   const isAtScrollEdge = (element, direction) => {
     if (!element) return true;
@@ -914,35 +1132,35 @@ export default function App() {
 
   const getTabColor = (tab) => {
     switch (tab) {
-      case 'Home':
-        return '#050505';
-      case 'How It Works':
-        return '#090909';
-      case 'Pricing':
-        return '#0d0d0d';
-      case 'Work':
-        return '#070707';
-      case 'Contact':
-        return '#111111';
+      case "Home":
+        return "#050505";
+      case "How It Works":
+        return "#090909";
+      case "Pricing":
+        return "#0d0d0d";
+      case "Work":
+        return "#070707";
+      case "Contact":
+        return "#111111";
       default:
-        return '#050505';
+        return "#050505";
     }
   };
 
   const renderContent = (tabName) => {
     switch (tabName) {
-      case 'Home':
-        return <HomeSection onCta={() => moveToTab('Contact')} />;
-      case 'How It Works':
+      case "Home":
+        return <HomeSection onCta={() => moveToTab("Contact")} />;
+      case "How It Works":
         return <HowItWorksSection />;
-      case 'Pricing':
+      case "Pricing":
         return <PricingSection />;
-      case 'Work':
+      case "Work":
         return <WorkSection />;
-      case 'Contact':
+      case "Contact":
         return <ContactSection />;
       default:
-        return <HomeSection onCta={() => moveToTab('Contact')} />;
+        return <HomeSection onCta={() => moveToTab("Contact")} />;
     }
   };
 
@@ -954,7 +1172,9 @@ export default function App() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <style dangerouslySetInnerHTML={{__html: `
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
           @import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
           .font-glitch { font-family: 'Rubik Glitch', system-ui; }
           
@@ -962,20 +1182,41 @@ export default function App() {
           ::-webkit-scrollbar-track { background: transparent; }
           ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
           ::-webkit-scrollbar-thumb:hover { background: #71717a; }
-        `}} />
+        `,
+          }}
+        />
 
         <AnimatePresence initial={false}>
           <motion.main
             key={activeTab}
-            initial={{ y: '100%', zIndex: 20, boxShadow: '0 -40px 80px rgba(0,0,0,0.8)' }}
-            animate={{ y: 0, zIndex: 20, boxShadow: '0 0px 0px rgba(0,0,0,0)', scale: 1, opacity: 1 }}
-            exit={{ y: 0, scale: 0.94, opacity: 0.6, zIndex: 10, filter: 'blur(2px)' }}
+            initial={{
+              y: "100%",
+              zIndex: 20,
+              boxShadow: "0 -40px 80px rgba(0,0,0,0.8)",
+            }}
+            animate={{
+              y: 0,
+              zIndex: 20,
+              boxShadow: "0 0px 0px rgba(0,0,0,0)",
+              scale: 1,
+              opacity: 1,
+            }}
+            exit={{
+              y: 0,
+              scale: 0.94,
+              opacity: 0.6,
+              zIndex: 10,
+              filter: "blur(2px)",
+            }}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 h-full w-full overflow-hidden"
             style={{ backgroundColor: getTabColor(activeTab) }}
           >
             <header className="absolute left-0 top-0 z-50 flex w-full items-center justify-between px-3 py-4 sm:px-4 sm:py-5 lg:px-10">
-              <button onClick={() => moveToTab('Home')} className="font-logo text-xl tracking-normal text-white cursor-pointer bg-transparent border-none sm:text-2xl">
+              <button
+                onClick={() => moveToTab("Home")}
+                className="font-logo text-xl tracking-normal text-white cursor-pointer bg-transparent border-none sm:text-2xl"
+              >
                 SiteKeep
               </button>
               <span className="hidden text-xs font-semibold text-zinc-400 sm:inline-flex md:text-sm">
@@ -997,14 +1238,18 @@ export default function App() {
                   onClick={() => moveToTab(tab)}
                   className={`
                     relative z-10 whitespace-nowrap rounded-full px-3 py-2 text-[11px] font-medium transition-colors duration-300 sm:px-4 sm:py-2.5 sm:text-sm cursor-pointer bg-transparent border-none
-                    ${isActive ? 'text-black font-semibold' : 'text-zinc-400 hover:text-zinc-200'}
+                    ${isActive ? "text-black font-semibold" : "text-zinc-400 hover:text-zinc-200"}
                   `}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="activePill"
                       className="absolute inset-0 -z-10 rounded-full bg-white"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
                     />
                   )}
                   {tab}
@@ -1017,9 +1262,9 @@ export default function App() {
         {/* Preloader Overlay */}
         <AnimatePresence>
           {loading && (
-            <Preloader 
-              onReveal={() => setStartReveal(true)} 
-              onComplete={() => setLoading(false)} 
+            <Preloader
+              onReveal={() => setStartReveal(true)}
+              onComplete={() => setLoading(false)}
             />
           )}
         </AnimatePresence>

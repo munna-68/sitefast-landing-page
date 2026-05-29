@@ -1655,7 +1655,10 @@ const ContactSection = () => (
       <FadeIn delay={0.3}>
         <div className="relative overflow-hidden rounded-lg border border-outline-subtle/10 bg-surface-low p-5 text-left group sm:p-8 md:p-12">
           <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/5 blur-3xl transition-transform duration-700 group-hover:scale-110" />
-          <form className="relative z-10 space-y-6 sm:space-y-8" onSubmit={(event) => event.preventDefault()}>
+          <form
+            className="relative z-10 space-y-6 sm:space-y-8"
+            onSubmit={(event) => event.preventDefault()}
+          >
             <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
               {[
                 "Your Name",
@@ -1688,8 +1691,8 @@ const ContactSection = () => (
           </form>
           <FadeIn delay={0.46}>
             <p className="mt-6 text-center font-label text-[10px] font-medium text-on-surface-dim/60 sm:mt-8 sm:text-xs">
-              Send the basics now. We can collect photos, domain details, menu PDFs,
-              service lists, and brand notes after we know the business.
+              Send the basics now. We can collect photos, domain details, menu
+              PDFs, service lists, and brand notes after we know the business.
             </p>
           </FadeIn>
         </div>

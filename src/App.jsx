@@ -835,9 +835,12 @@ const PricingSection = () => {
           <div className="monolith-container">
             <header className="monolith-header">
               <h1 className="monolith-display-title">
-                Your $30/Month Keeps Everything Running
+                <RevealLine>Your $30/Month Keeps</RevealLine>
+                <RevealLine delay={0.08}>Everything Running</RevealLine>
               </h1>
-              <p className="monolith-subtitle">See how SiteKeep compares.</p>
+              <FadeIn delay={0.14}>
+                <p className="monolith-subtitle">See how SiteKeep compares.</p>
+              </FadeIn>
             </header>
           </div>
         </section>
@@ -845,7 +848,8 @@ const PricingSection = () => {
         {/* SECTION 2: Comparison Table Area (Desktop Only) */}
         <section className="monolith-section monolith-table-section">
           <div className="monolith-container">
-            <div className="table-wrapper">
+            <FadeIn delay={0.18}>
+              <div className="table-wrapper">
               <table className="monolith-table">
                 <thead>
                   <tr>
@@ -883,7 +887,8 @@ const PricingSection = () => {
                   })}
                 </tbody>
               </table>
-            </div>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -979,7 +984,8 @@ const PricingSection = () => {
         {/* SECTION 3: "All the essentials" Card */}
         <section className="monolith-section monolith-essentials-section">
           <div className="monolith-container">
-            <div className="essentials-card">
+            <FadeIn delay={0.22}>
+              <div className="essentials-card">
               <div className="essentials-icon-box">
                 <ShieldCheck className="essentials-icon" />
               </div>
@@ -996,7 +1002,8 @@ const PricingSection = () => {
                   </p>
                 </div>
               </div>
-            </div>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -1004,14 +1011,20 @@ const PricingSection = () => {
         <section className="monolith-section monolith-covers-section">
           <div className="monolith-container">
             <header className="monolith-header">
-              <h2 className="monolith-title">What Your $30/Month Covers</h2>
-              <p className="monolith-subtitle">
-                No surprise invoices. No platform fees. Just one number that
-                covers everything.
-              </p>
+              <h2 className="monolith-title">
+                <RevealLine>What Your $30/Month</RevealLine>
+                <RevealLine delay={0.08}>Covers</RevealLine>
+              </h2>
+              <FadeIn delay={0.14}>
+                <p className="monolith-subtitle">
+                  No surprise invoices. No platform fees. Just one number that
+                  covers everything.
+                </p>
+              </FadeIn>
             </header>
 
-            <div className="monolith-grid">
+            <FadeIn delay={0.2}>
+              <div className="monolith-grid">
               <div className="monolith-card">
                 <div className="monolith-icon-box">
                   <svg
@@ -1161,12 +1174,15 @@ const PricingSection = () => {
                 </div>
               </div>
             </div>
+            </FadeIn>
 
-            <footer className="monolith-footer">
+            <FadeIn delay={0.28}>
+              <footer className="monolith-footer">
               <p className="monolith-footer-text">
                 All plans include everything above. Cancel anytime.
               </p>
-            </footer>
+              </footer>
+            </FadeIn>
           </div>
         </section>
 
@@ -1191,16 +1207,21 @@ const WorkSection = () => {
       <div className="w-full py-4 md:py-8">
         <div className="mb-10 text-center md:mb-16">
           <div className="mx-auto max-w-3xl">
-            <p className="mb-3 font-label text-[10px] font-semibold uppercase tracking-[0.24em] text-on-surface-dim/50 sm:text-xs">
-              Case studies
-            </p>
+            <FadeIn delay={0.05}>
+              <p className="mb-3 font-label text-[10px] font-semibold uppercase tracking-[0.24em] text-on-surface-dim/50 sm:text-xs">
+                Case studies
+              </p>
+            </FadeIn>
             <h1 className="mb-3 font-headline text-[28px] font-bold leading-[34px] tracking-[-0.02em] text-primary sm:text-[32px] sm:leading-[38px] md:text-[48px] md:leading-[56px]">
-              Built to stay consistent over time
+              <RevealLine>Built to stay</RevealLine>
+              <RevealLine delay={0.08}>consistent over time</RevealLine>
             </h1>
-            <p className="font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
-              I design, hand-code, and maintain sites so the visuals, messaging,
-              and performance stay aligned after launch.
-            </p>
+            <FadeIn delay={0.16}>
+              <p className="font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
+                I design, hand-code, and maintain sites so the visuals, messaging,
+                and performance stay aligned after launch.
+              </p>
+            </FadeIn>
           </div>
         </div>
 
@@ -1553,12 +1574,15 @@ const ContactSection = () => (
     <div className="mx-auto w-full max-w-4xl text-center space-y-8 sm:space-y-12">
       <div className="space-y-4 sm:space-y-6">
         <h1 className="font-headline text-[28px] font-bold leading-[34px] tracking-[-0.02em] text-primary sm:text-[32px] sm:leading-[38px] md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
-          Ready for Your Free Website?
+          <RevealLine>Ready for Your</RevealLine>
+          <RevealLine delay={0.08}>Free Website?</RevealLine>
         </h1>
-        <p className="mx-auto max-w-2xl font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
-          Tell us a little about your business and we'll take it from there. No
-          commitment, no credit card.
-        </p>
+        <FadeIn delay={0.16}>
+          <p className="mx-auto max-w-2xl font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
+            Tell us a little about your business and we'll take it from there. No
+            commitment, no credit card.
+          </p>
+        </FadeIn>
       </div>
       <div className="grid grid-cols-1 gap-5 border-y border-outline-subtle/10 py-6 sm:gap-6 sm:py-8 md:grid-cols-3">
         {[

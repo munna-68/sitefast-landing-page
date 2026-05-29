@@ -298,7 +298,7 @@ const AnimatedLine = ({ children, text, delay = 0, className = '' }) => {
 const SectionShell = ({ children, className = '' }) => (
   <section
     data-section-scroll
-    className={`min-h-full h-full px-4 sm:px-6 lg:px-10 pt-24 pb-28 overflow-y-auto ${className}`}
+    className={`min-h-full h-full px-4 pt-20 pb-24 overflow-y-auto sm:px-6 sm:pt-24 sm:pb-28 lg:px-10 ${className}`}
   >
     <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col justify-center">{children}</div>
   </section>
@@ -361,39 +361,39 @@ const HomeSection = ({ onCta }) => (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] bg-white opacity-[0.03] blur-[100px] rounded-full pointer-events-none" />
     <div className="relative grid items-center gap-6 lg:grid-cols-12 lg:gap-6">
       <div className="absolute inset-0 monolith-gradient pointer-events-none" />
-      <div className="relative z-10 lg:col-span-7 flex flex-col justify-center space-y-12 mb-20 lg:mb-0">
-        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-outline-subtle/20 bg-surface-low px-4 py-1.5">
-          <Sparkles className="h-4 w-4 text-primary" />
-          <span className="font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim">SiteKeep</span>
+      <div className="relative z-10 lg:col-span-7 flex flex-col justify-center space-y-8 sm:space-y-12 mb-16 lg:mb-0">
+        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-outline-subtle/20 bg-surface-low px-3 py-1.5 sm:px-4">
+          <Sparkles className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" />
+          <span className="font-label text-[10px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">SiteKeep</span>
         </div>
-        <h1 className="max-w-5xl font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
+        <h1 className="max-w-5xl font-headline text-[36px] font-bold leading-[42px] tracking-[-0.02em] text-primary sm:text-[44px] sm:leading-[50px] md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
           <RevealLine>We Build</RevealLine>
           <RevealLine delay={0.08}>Your Website.</RevealLine>
           <RevealLine delay={0.16}>For Free.</RevealLine>
         </h1>
         <FadeIn delay={0.18}>
-          <p className="max-w-xl font-body text-[18px] leading-[28px] text-on-surface-dim">
+          <p className="max-w-xl font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
             Seriously. No setup fee, no hidden costs. Just $30/month to keep it running, secure, and updated — forever.
           </p>
         </FadeIn>
         <FadeIn delay={0.28}>
           <button
             onClick={onCta}
-            className="inline-flex items-center justify-center gap-3 rounded-full bg-primary px-10 py-5 font-headline text-[24px] leading-[32px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface"
+            className="inline-flex items-center justify-center gap-3 rounded-full bg-primary px-8 py-4 font-headline text-[18px] leading-[26px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface sm:px-10 sm:py-5 sm:text-[24px] sm:leading-[32px]"
           >
-            Get My Free Website <ArrowRight className="h-5 w-5" />
+            Get My Free Website <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </FadeIn>
         <FadeIn delay={0.34}>
-          <dl className="mt-10 grid max-w-2xl grid-cols-3 border-y border-outline-subtle/10 py-5 font-label text-xs font-medium uppercase tracking-[0.05em]">
+          <dl className="mt-6 grid grid-cols-3 border-y border-outline-subtle/10 py-4 font-label text-[10px] font-medium uppercase tracking-[0.05em] sm:mt-10 sm:py-5 sm:text-xs">
             {[
               ['Setup', '$0'],
               ['Care plan', '$30/mo'],
               ['Contract', 'None'],
             ].map(([label, value]) => (
-              <div key={label} className="border-r border-outline-subtle/10 px-4 first:pl-0 last:border-r-0">
+              <div key={label} className="border-r border-outline-subtle/10 px-2 first:pl-0 last:border-r-0 sm:px-4">
                 <dt className="text-on-surface-dim">{label}</dt>
-                <dd className="mt-1 font-headline text-base font-extrabold normal-case tracking-normal text-primary">{value}</dd>
+                <dd className="mt-1 font-headline text-sm font-extrabold normal-case tracking-normal text-primary sm:text-base">{value}</dd>
               </div>
             ))}
           </dl>
@@ -436,15 +436,15 @@ const HowItWorksSection = () => {
   return (
     <SectionShell>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-6 items-start">
-        <div className="lg:col-span-6 space-y-12">
-          <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold max-w-xl">
+        <div className="lg:col-span-6 space-y-8 sm:space-y-12">
+          <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary sm:text-[44px] sm:leading-[50px] md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold max-w-xl">
             <RevealLine>Three Steps.</RevealLine>
             <RevealLine delay={0.08}>Zero Stress.</RevealLine>
           </h1>
           <FadeIn delay={0.18}>
-            <div className="space-y-6 border border-outline-subtle/10 bg-surface-low/50 p-12 backdrop-blur-sm">
-              <h3 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">Why Would We Build It For Free?</h3>
-              <p className="font-body text-[16px] leading-[24px] text-on-surface-dim opacity-90">
+            <div className="space-y-5 border border-outline-subtle/10 bg-surface-low/50 p-6 backdrop-blur-sm sm:space-y-6 sm:p-8 md:p-12">
+              <h3 className="font-headline text-[20px] font-semibold leading-[28px] tracking-[-0.01em] text-primary sm:text-[24px] sm:leading-[32px]">Why Would We Build It For Free?</h3>
+              <p className="font-body text-[15px] leading-[24px] text-on-surface-dim opacity-90 sm:text-[16px] sm:leading-[24px]">
                 Honest answer: we don't make money upfront. We build your site at no charge and only start earning after
                 you've been with us for about two years. That means we're motivated to build something you actually love
                 and keep you around — not take your money and disappear. No contract. No gotcha. Just a handshake deal
@@ -453,40 +453,40 @@ const HowItWorksSection = () => {
             </div>
           </FadeIn>
           <FadeIn delay={0.24}>
-            <div className="grid grid-cols-1 md:grid-cols-2 border border-outline-subtle/10 overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 border border-outline-subtle/10 overflow-hidden">
               {details.map((item, index) => {
                 const isTopRow = index < 2;
                 const isLeftCol = index % 2 === 0;
                 return (
                   <div
                     key={item}
-                    className={`p-6 flex items-center gap-4 border-outline-subtle/10 ${
-                      isTopRow ? 'border-b md:border-b-0' : ''
-                    } ${isLeftCol ? 'md:border-r' : ''}`}
+                    className={`p-4 flex items-center gap-3 border-outline-subtle/10 sm:p-6 sm:gap-4 ${
+                      isTopRow ? 'border-b sm:border-b-0' : ''
+                    } ${isLeftCol ? 'sm:border-r' : ''}`}
                   >
-                    <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="font-label text-xs font-medium uppercase tracking-wider text-on-surface-dim">{item}</span>
+                    <Check className="h-4 w-4 text-primary flex-shrink-0 sm:h-5 sm:w-5" />
+                    <span className="font-label text-[11px] font-medium uppercase tracking-wider text-on-surface-dim sm:text-xs">{item}</span>
                   </div>
                 );
               })}
             </div>
           </FadeIn>
         </div>
-        <div className="lg:col-span-6 lg:pl-12 space-y-12">
+        <div className="lg:col-span-6 lg:pl-12 space-y-10 sm:space-y-12">
           <div className="relative">
-            <div className="absolute left-12 top-12 bottom-12 w-px bg-outline-subtle/30" />
-            <div className="space-y-16">
+            <div className="absolute left-10 top-10 bottom-10 w-px bg-outline-subtle/30 sm:left-12 sm:top-12 sm:bottom-12" />
+            <div className="space-y-12 sm:space-y-16">
               {steps.map(([title, text], index) => (
                 <FadeIn key={title} delay={index * 0.1}>
-                  <div className="relative flex gap-12 group">
-                    <div className={`flex-shrink-0 w-24 h-24 ${index === 2 ? 'bg-primary' : 'bg-surface-high'} border border-outline-subtle/10 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-105`}>
-                      <span className={`font-headline text-[48px] leading-[56px] tracking-[-0.02em] font-extrabold ${index === 2 ? 'text-surface' : 'text-primary'}`}>
+                  <div className="relative flex gap-6 sm:gap-8 md:gap-12 group">
+                    <div className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 ${index === 2 ? 'bg-primary' : 'bg-surface-high'} border border-outline-subtle/10 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-105`}>
+                      <span className={`font-headline text-[32px] leading-[40px] tracking-[-0.02em] font-extrabold sm:text-[40px] sm:leading-[48px] md:text-[48px] md:leading-[56px] ${index === 2 ? 'text-surface' : 'text-primary'}`}>
                         0{index + 1}
                       </span>
                     </div>
-                    <div className="flex-grow pt-4">
-                      <h4 className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary mb-2">{title}</h4>
-                      <p className="font-body text-[18px] leading-[28px] text-on-surface-dim">{text}</p>
+                    <div className="flex-grow pt-2 sm:pt-4">
+                      <h4 className="font-headline text-[18px] font-semibold leading-[26px] tracking-[-0.01em] text-primary mb-2 sm:text-[24px] sm:leading-[32px]">{title}</h4>
+                      <p className="font-body text-[15px] leading-[24px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">{text}</p>
                     </div>
                   </div>
                 </FadeIn>
@@ -494,9 +494,9 @@ const HowItWorksSection = () => {
             </div>
           </div>
           <FadeIn delay={0.34}>
-            <div className="mt-20 pt-12 border-t border-outline-subtle/10">
-              <span className="font-label text-xs font-medium text-primary tracking-[0.2em] uppercase">What happens after launch</span>
-              <p className="mt-6 font-body text-[18px] leading-[28px] text-on-surface opacity-80">
+            <div className="mt-16 pt-10 border-t border-outline-subtle/10 sm:mt-20 sm:pt-12">
+              <span className="font-label text-[11px] font-medium text-primary tracking-[0.2em] uppercase sm:text-xs">What happens after launch</span>
+              <p className="mt-5 font-body text-[16px] leading-[26px] text-on-surface opacity-80 sm:mt-6 sm:text-[18px] sm:leading-[28px]">
                 You keep one point of contact for fixes, content changes, security, analytics, and hosting. No plugin
                 pile-up. No page builder bills. No guessing who to call.
               </p>
@@ -509,14 +509,7 @@ const HowItWorksSection = () => {
 };
 
 const PricingSection = () => {
-  const features = [
-    ['Security & Hosting', 'Your site stays online, protected, and never goes down', ShieldCheck],
-    ['Monthly Updates', 'Need to change your hours, menu, or prices? Done.', SlidersHorizontal],
-    ['Google Analytics', "See who's visiting and where they're coming from", Search],
-    ['SEO Optimization', 'Built to show up when people search for you locally', ArrowUpRight],
-    ['Custom Hand-Coded Site', 'Not a Wix template. A real website built for your business', Sparkles],
-    ['Ongoing Support', "You have a question, you text us. That's it.", Mail],
-  ];
+  const [activeComparison, setActiveComparison] = useState('wix');
 
   const rows = [
     { label: 'Setup Cost', icon: Tag, values: ['$0', '$0', '$2,000–$10,000'] },
@@ -527,104 +520,108 @@ const PricingSection = () => {
     { label: 'SEO Optimized', icon: Search, values: ['Yes', 'Basic', 'Yes'] },
   ];
 
+  const competitorIndex = activeComparison === 'wix' ? 1 : 2;
+  const competitorName = activeComparison === 'wix' ? 'Wix/Squarespace' : 'Agency';
+
   return (
     <SectionShell>
-      <div className="grid gap-6">
-        <div className="flex flex-col gap-8 text-center md:text-left md:flex-row md:items-end md:justify-between">
-          <div className="max-w-3xl">
-            <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[48px] md:leading-[56px] md:tracking-[-0.02em]">
-              Your $30/Month Keeps Everything Running
-            </h1>
-          </div>
-          <div className="flex flex-col items-center md:items-end">
-            <span className="w-max rounded-full border border-outline-subtle/10 bg-surface-mid px-6 py-3 font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">
-              $0 setup
-            </span>
-          </div>
+      <div className="flex flex-col">
+        {/* Header */}
+        <div className="mb-6 sm:mb-8">
+          <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary sm:text-[40px] sm:leading-[46px] md:text-[56px] md:leading-[62px]">
+            Your $30/Month<br />Keeps Everything Running
+          </h1>
+          <p className="mt-3 text-[15px] text-zinc-400 sm:mt-4 sm:text-[16px]">See how SiteKeep compares.</p>
         </div>
-        <FadeIn delay={0.16}>
-          <div className="overflow-x-auto w-full border border-outline-subtle/10 bg-[#050505] rounded-2xl p-1 shadow-2xl">
-            <table className="w-full border-collapse text-left min-w-[700px]">
-              <thead>
-                <tr className="border-b border-outline-subtle/10">
-                  <th className="px-6 py-6 text-sm font-semibold tracking-wide text-zinc-500 w-[30%]"></th>
-                  <th className="relative px-6 py-6 text-center text-xl font-bold tracking-tight text-white w-[23.3%] font-headline">
-                    {/* Continuous floating border card overlay for SiteKeep column */}
-                    <div className="absolute inset-x-1 -top-1 bottom-0 border-t border-l border-r border-white/10 bg-white/[0.03] rounded-t-2xl z-0 pointer-events-none" />
-                    <span className="relative z-10">SiteKeep</span>
-                  </th>
-                  <th className="px-6 py-6 text-center text-xl font-semibold tracking-tight text-zinc-400 w-[23.3%] font-headline">Wix/Squarespace</th>
-                  <th className="px-6 py-6 text-center text-xl font-semibold tracking-tight text-zinc-400 w-[23.3%] font-headline">Agency</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline-subtle/5">
-                {rows.map((row, rowIndex) => {
-                  const isLastRow = rowIndex === rows.length - 1;
-                  const Icon = row.icon;
-                  return (
-                    <tr key={row.label} className="border-b border-outline-subtle/5 last:border-b-0 group">
-                      {/* Feature Label Cell */}
-                      <td className="px-6 py-6 text-zinc-300 font-medium font-body text-lg align-middle">
-                        <div className="flex items-center gap-3">
-                          <Icon className="h-5 w-5 text-zinc-500 flex-shrink-0 group-hover:text-primary transition-colors duration-300" />
-                          <span>{row.label}</span>
-                        </div>
-                      </td>
-                      {/* SiteKeep Cell (Highlighted Column) */}
-                      <td className="relative px-6 py-6 text-center text-white font-bold align-middle">
-                        {/* Highlight background card spanning this cell */}
-                        <div className={`absolute inset-x-1 -top-[1px] -bottom-[1px] bg-white/[0.03] border-l border-r border-white/10 z-0 pointer-events-none
-                          ${isLastRow ? 'rounded-b-2xl border-b border-white/10' : ''}
-                        `} />
-                        <span className="relative z-10 text-lg">{row.values[0]}</span>
-                      </td>
-                      {/* Wix/Squarespace Cell */}
-                      <td className="px-6 py-6 text-center text-zinc-400 align-middle font-body text-lg">{row.values[1]}</td>
-                      {/* Agency Cell */}
-                      <td className="px-6 py-6 text-center text-zinc-400 align-middle font-body text-lg">{row.values[2]}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+
+        {/* Comparison Toggle Tabs */}
+        <FadeIn delay={0.1}>
+          <div className="mb-6 flex gap-2 sm:mb-8">
+            <button
+              onClick={() => setActiveComparison('wix')}
+              className={`flex flex-1 items-center justify-center gap-2 rounded-full border px-4 py-3 text-[13px] font-medium transition-all sm:flex-none sm:px-6 sm:text-[14px] ${
+                activeComparison === 'wix'
+                  ? 'border-white/20 bg-white/[0.08] text-white'
+                  : 'border-white/10 bg-transparent text-zinc-500 hover:border-white/15 hover:text-zinc-300'
+              }`}
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M3 9h18M9 3v18" />
+              </svg>
+              vs Wix/Squarespace
+            </button>
+            <button
+              onClick={() => setActiveComparison('agency')}
+              className={`flex flex-1 items-center justify-center gap-2 rounded-full border px-4 py-3 text-[13px] font-medium transition-all sm:flex-none sm:px-6 sm:text-[14px] ${
+                activeComparison === 'agency'
+                  ? 'border-white/20 bg-white/[0.08] text-white'
+                  : 'border-white/10 bg-transparent text-zinc-500 hover:border-white/15 hover:text-zinc-300'
+              }`}
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7" />
+              </svg>
+              vs Agency
+            </button>
           </div>
         </FadeIn>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {features.map(([title, text, Icon], index) => (
-            <FadeIn key={title} delay={index * 0.04}>
-              <div className="group h-full rounded-xl border border-outline-subtle/10 bg-surface-low p-7 transition-colors duration-300 hover:bg-surface-high">
-                <Icon className="mb-5 h-5 w-5 text-primary" />
-                <h3 className="font-headline text-[20px] md:text-[22px] font-semibold leading-[28px] md:leading-[30px] tracking-[-0.01em] text-primary mb-2">{title}</h3>
-                <p className="font-body text-[16px] leading-[26px] text-on-surface-dim">{text}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-        <FadeIn delay={0.22}>
-          <div className="border-y border-outline-subtle/10 py-10 md:py-14 space-y-6">
-            <h3 className="font-headline text-[22px] md:text-[26px] font-semibold leading-[30px] md:leading-[34px] tracking-[-0.01em] text-primary max-w-lg">
-              "This Sounds Too Good. What's the Catch?"
-            </h3>
-            <p className="font-body text-[17px] leading-[28px] text-on-surface-dim max-w-2xl">
-              Fair question. Here's the truth: we make our money over time, not upfront. We break even around the
-              two-year mark, then it becomes worth it for us. That model only works if you're happy enough to stay — so
-              we have every reason to do great work and keep you satisfied. No contracts. No pressure. If you ever want
-              to leave, we'll hand you everything — your domain, your files, all of it.
-            </p>
+
+        {/* Comparison Table */}
+        <FadeIn delay={0.15}>
+          <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] overflow-hidden">
+            {/* Table Header */}
+            <div className="grid grid-cols-[1fr_auto_auto] border-b border-white/10 px-4 py-4 sm:px-6 sm:py-5">
+              <span className="text-[12px] font-medium text-zinc-500 uppercase tracking-wider">Feature</span>
+              <span className="text-center text-[13px] font-bold text-white sm:text-[14px]">SiteKeep<br /><span className="text-[11px] font-normal text-zinc-500">(You)</span></span>
+              <span className="text-center text-[13px] font-medium text-zinc-400 sm:text-[14px]">{competitorName}</span>
+            </div>
+
+            {/* Table Rows */}
+            {rows.map((row, rowIndex) => {
+              const Icon = row.icon;
+              const isLast = rowIndex === rows.length - 1;
+              return (
+                <div
+                  key={row.label}
+                  className={`grid grid-cols-[1fr_auto_auto] items-center px-4 py-4 sm:px-6 sm:py-5 ${
+                    !isLast ? 'border-b border-white/[0.06]' : ''
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <Icon className="h-4 w-4 text-zinc-500 sm:h-[18px] sm:w-[18px]" />
+                    <span className="text-[14px] text-zinc-300 sm:text-[15px]">{row.label}</span>
+                  </div>
+                  <span className="min-w-[60px] text-center text-[14px] font-bold text-white sm:min-w-[80px] sm:text-[15px]">
+                    {row.values[0]}
+                  </span>
+                  <span className="min-w-[60px] text-center text-[14px] text-zinc-500 sm:min-w-[80px] sm:text-[15px]">
+                    {row.values[competitorIndex]}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </FadeIn>
-        <FadeIn delay={0.28}>
-          <div className="grid gap-8 md:grid-cols-3 pt-4">
-            {[
-              ['No surprise invoices', 'Small edits, hosting care, and support are folded into one predictable plan.'],
-              ['No platform lock-in', 'If you leave, the files and domain go with you. That should be normal.'],
-              ['No template ceiling', 'The site can grow as the business changes because the code is not boxed in.'],
-            ].map(([title, text]) => (
-              <div key={title} className="border-l-2 border-outline-subtle/20 pl-5 py-1">
-                <h4 className="font-headline text-[20px] md:text-[22px] font-semibold leading-[28px] md:leading-[30px] tracking-[-0.01em] text-primary mb-2">{title}</h4>
-                <p className="font-body text-[16px] leading-[26px] text-on-surface-dim">{text}</p>
+
+        {/* Summary Card */}
+        <FadeIn delay={0.2}>
+          <div className="mt-6 rounded-2xl border border-white/10 bg-[#0f0f0f] p-5 sm:mt-8 sm:p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] sm:h-14 sm:w-14">
+                <svg className="h-6 w-6 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 2l8 4v6c0 5.25-3.5 9.74-8 11-4.5-1.26-8-5.75-8-11V6l8-4z" />
+                </svg>
               </div>
-            ))}
+              <div>
+                <h3 className="text-[18px] font-semibold text-white sm:text-[20px]">All the essentials. One simple price.</h3>
+                <p className="mt-1 text-[14px] leading-[22px] text-zinc-400 sm:text-[15px] sm:leading-[24px]">
+                  No hidden fees, no surprises.<br />
+                  Just a site that works—for $30/month.
+                </p>
+              </div>
+            </div>
           </div>
         </FadeIn>
       </div>
@@ -640,23 +637,23 @@ const WorkSection = () => {
   return (
     <SectionShell>
       <div className="w-full py-4 md:py-8">
-        <div className="mb-12 text-center md:mb-16">
+        <div className="mb-8 text-center md:mb-16">
           <div className="mx-auto max-w-3xl">
-            <h1 className="mb-4 font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[48px] md:leading-[56px]">
+            <h1 className="mb-3 font-headline text-[28px] font-bold leading-[34px] tracking-[-0.02em] text-primary sm:text-[32px] sm:leading-[38px] md:text-[48px] md:leading-[56px]">
               Built for Businesses Like Yours
             </h1>
-            <p className="font-body text-[18px] leading-[28px] text-on-surface-dim">
+            <p className="font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
               Every site is hand-coded from scratch. No templates, no page builders.
             </p>
           </div>
         </div>
-        <div className="mb-8 flex flex-wrap items-center gap-6 md:gap-12">
+        <div className="mb-6 flex flex-wrap items-center gap-4 sm:mb-8 sm:gap-6 md:gap-12">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-dim/40">Filters</span>
-          <div className="flex flex-wrap gap-x-8 gap-y-4">
+          <div className="flex flex-wrap gap-x-5 gap-y-3 sm:gap-x-8 sm:gap-y-4">
             {['Small business sites', 'Service pages and lead forms', 'Launch plus monthly care'].map((item, index) => (
               <p
                 key={item}
-                className={`font-label text-xs font-medium transition-colors ${
+                className={`font-label text-[11px] font-medium transition-colors sm:text-xs ${
                   index === 0
                     ? 'text-primary relative after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:bg-primary'
                     : 'text-on-surface-dim/60 hover:text-primary'
@@ -670,7 +667,7 @@ const WorkSection = () => {
         <div className="overflow-hidden">
           <motion.div
             layout
-            className="hide-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto pb-8 pr-0 md:pr-16"
+            className="hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-6 pr-0 sm:gap-6 sm:pb-8 md:pr-16"
           >
             <AnimatePresence initial={false}>
               {visibleProjects.map((project, index) => (
@@ -681,19 +678,19 @@ const WorkSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 18 }}
                   transition={{ duration: 0.35, delay: index >= 3 ? (index - 3) * 0.05 : 0 }}
-                  className="group flex min-w-[85vw] snap-start flex-col overflow-hidden rounded-xl border border-outline-subtle/20 bg-surface-low transition-colors duration-300 hover:bg-surface-high md:min-w-[40%] lg:min-w-[38%]"
+                  className="group flex min-w-[85vw] snap-start flex-col overflow-hidden rounded-xl border border-outline-subtle/20 bg-surface-low transition-colors duration-300 hover:bg-surface-high sm:min-w-[70vw] md:min-w-[40%] lg:min-w-[38%]"
                 >
                   <div className="aspect-[16/10] overflow-hidden bg-surface-high">
                     <VideoPlaceholder src={project.videoSrc} />
                   </div>
-                  <div className="flex flex-grow flex-col p-8">
-                    <h3 className="mb-3 font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">
+                  <div className="flex flex-grow flex-col p-5 sm:p-8">
+                    <h3 className="mb-2 font-headline text-[20px] font-semibold leading-[28px] tracking-[-0.01em] text-primary sm:mb-3 sm:text-[24px] sm:leading-[32px]">
                       {project.title}
                     </h3>
-                    <p className="mb-8 min-h-12 flex-grow font-body text-[16px] leading-[24px] text-on-surface-dim">
+                    <p className="mb-6 min-h-10 flex-grow font-body text-[15px] leading-[24px] text-on-surface-dim sm:mb-8 sm:min-h-12 sm:text-[16px] sm:leading-[24px]">
                       {project.description}
                     </p>
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center justify-between gap-3 sm:gap-4">
                       <div className="flex gap-2">
                         <LinkButton href={project.githubUrl} variant="outline" icon={Github}>
                           <span className="sr-only">GitHub</span>
@@ -704,7 +701,7 @@ const WorkSection = () => {
                       </div>
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="rounded-full bg-primary px-6 py-2 font-label text-xs font-bold text-on-primary transition-colors hover:bg-on-surface active:scale-95"
+                        className="rounded-full bg-primary px-4 py-1.5 font-label text-[11px] font-bold text-on-primary transition-colors hover:bg-on-surface active:scale-95 sm:px-6 sm:py-2 sm:text-xs"
                       >
                         Details
                       </button>
@@ -715,17 +712,17 @@ const WorkSection = () => {
             </AnimatePresence>
           </motion.div>
           {visibleCount < projects.length && (
-            <div className="mt-8 flex items-center justify-between">
+            <div className="mt-6 flex items-center justify-between sm:mt-8">
               <div className="flex gap-2">
-                <div className="h-1 w-12 rounded-full bg-primary" />
-                <div className="h-1 w-8 rounded-full bg-outline-subtle/30" />
-                <div className="h-1 w-8 rounded-full bg-outline-subtle/30" />
+                <div className="h-1 w-10 rounded-full bg-primary sm:w-12" />
+                <div className="h-1 w-6 rounded-full bg-outline-subtle/30 sm:w-8" />
+                <div className="h-1 w-6 rounded-full bg-outline-subtle/30 sm:w-8" />
               </div>
               <button
                 onClick={() => setVisibleCount((count) => Math.min(count + 3, projects.length))}
-                className="flex items-center gap-2 font-label text-xs font-bold text-primary transition-all hover:underline"
+                className="flex items-center gap-2 font-label text-[11px] font-bold text-primary transition-all hover:underline sm:text-xs"
               >
-                Show More <ArrowRight className="h-4 w-4" />
+                Show More <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
             </div>
           )}
@@ -740,7 +737,7 @@ const ProjectModal = ({ project, onClose }) => (
   <AnimatePresence>
     {project && (
       <motion.div
-        className="fixed inset-0 z-[90] grid place-items-center bg-black/80 p-4 backdrop-blur-sm"
+        className="fixed inset-0 z-[90] grid place-items-center bg-black/80 p-3 backdrop-blur-sm sm:p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -755,23 +752,23 @@ const ProjectModal = ({ project, onClose }) => (
           onWheel={(event) => event.stopPropagation()}
           onTouchStart={(event) => event.stopPropagation()}
           onTouchEnd={(event) => event.stopPropagation()}
-          className="max-h-[92vh] w-full max-w-4xl overflow-y-auto border border-white/20 bg-black p-4 text-white shadow-2xl"
+          className="max-h-[90vh] w-full max-w-4xl overflow-y-auto border border-white/20 bg-black p-3 text-white shadow-2xl sm:p-4 md:max-h-[92vh]"
         >
-          <div className="mb-4 flex justify-end">
+          <div className="mb-3 flex justify-end sm:mb-4">
             <button
               onClick={onClose}
-              className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white transition hover:bg-white hover:text-black"
+              className="grid h-8 w-8 place-items-center rounded-full border border-white/20 text-white transition hover:bg-white hover:text-black sm:h-10 sm:w-10"
               aria-label="Close project details"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
           </div>
           <VideoPlaceholder src={project.videoSrc} large />
-          <div className="mt-6 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="mt-4 grid gap-4 sm:mt-6 sm:gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             <div>
-              <h3 className="text-3xl font-black">{project.title}</h3>
-              <p className="mt-3 leading-7 text-zinc-300">{project.fullDescription || project.description}</p>
-              <div className="mt-5 flex flex-wrap gap-3">
+              <h3 className="text-2xl font-black sm:text-3xl">{project.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-zinc-300 sm:mt-3 sm:leading-7">{project.fullDescription || project.description}</p>
+              <div className="mt-4 flex flex-wrap gap-2 sm:mt-5 sm:gap-3">
                 <LinkButton href={project.githubUrl} icon={Github}>
                   GitHub
                 </LinkButton>
@@ -781,16 +778,16 @@ const ProjectModal = ({ project, onClose }) => (
               </div>
             </div>
             <div>
-              <h4 className="mb-4 text-xl font-black">My Process</h4>
-              <div className="grid gap-3">
+              <h4 className="mb-3 text-lg font-black sm:mb-4 sm:text-xl">My Process</h4>
+              <div className="grid gap-2 sm:gap-3">
                 {processSteps.map((step, index) => (
-                  <div key={step.title} className="grid grid-cols-[2.5rem_1fr] gap-3">
-                    <span className="grid h-9 w-9 place-items-center border border-white/20 bg-white text-sm font-black text-black">
+                  <div key={step.title} className="grid grid-cols-[2rem_1fr] gap-2 sm:grid-cols-[2.5rem_1fr] sm:gap-3">
+                    <span className="grid h-7 w-7 place-items-center border border-white/20 bg-white text-xs font-black text-black sm:h-9 sm:w-9 sm:text-sm">
                       {index + 1}
                     </span>
-                    <div className="border-b border-white/10 pb-3">
-                      <h5 className="font-black">{step.title}</h5>
-                      <p className="mt-1 text-sm leading-6 text-zinc-300">{step.text}</p>
+                    <div className="border-b border-white/10 pb-2 sm:pb-3">
+                      <h5 className="text-sm font-black sm:text-base">{step.title}</h5>
+                      <p className="mt-0.5 text-xs leading-5 text-zinc-300 sm:mt-1 sm:text-sm sm:leading-6">{step.text}</p>
                     </div>
                   </div>
                 ))}
@@ -805,46 +802,46 @@ const ProjectModal = ({ project, onClose }) => (
 
 const ContactSection = () => (
   <SectionShell>
-    <div className="mx-auto w-full max-w-4xl text-center space-y-12">
-      <div className="space-y-6">
-        <h1 className="font-headline text-[32px] font-bold leading-[38px] tracking-[-0.02em] text-primary md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
+    <div className="mx-auto w-full max-w-4xl text-center space-y-8 sm:space-y-12">
+      <div className="space-y-4 sm:space-y-6">
+        <h1 className="font-headline text-[28px] font-bold leading-[34px] tracking-[-0.02em] text-primary sm:text-[32px] sm:leading-[38px] md:text-[88px] md:leading-[92px] md:tracking-[-0.04em] md:font-extrabold">
           Ready for Your Free Website?
         </h1>
-        <p className="mx-auto max-w-2xl font-body text-[18px] leading-[28px] text-on-surface-dim">
+        <p className="mx-auto max-w-2xl font-body text-[16px] leading-[26px] text-on-surface-dim sm:text-[18px] sm:leading-[28px]">
           Tell us a little about your business and we'll take it from there. No commitment, no credit card.
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-6 border-y border-outline-subtle/10 py-8 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 border-y border-outline-subtle/10 py-6 sm:gap-6 sm:py-8 md:grid-cols-3">
         {[
           ['Reply time', 'Usually same day'],
           ['First call', '15 minutes'],
           ['Payment', 'Only after launch'],
         ].map(([label, value], index) => (
-          <div key={label} className={`space-y-1 ${index === 1 ? 'border-y md:border-y-0 md:border-x border-outline-subtle/10 py-6 md:py-0' : ''}`}>
-            <p className="font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim">{label}</p>
-            <p className="font-headline text-[24px] font-semibold leading-[32px] tracking-[-0.01em] text-primary">{value}</p>
+          <div key={label} className={`space-y-1 ${index === 1 ? 'border-y border-outline-subtle/10 py-5 md:border-y-0 md:border-x md:py-0' : ''}`}>
+            <p className="font-label text-[11px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">{label}</p>
+            <p className="font-headline text-[20px] font-semibold leading-[28px] tracking-[-0.01em] text-primary sm:text-[24px] sm:leading-[32px]">{value}</p>
           </div>
         ))}
       </div>
-      <div className="relative overflow-hidden rounded-lg border border-outline-subtle/10 bg-surface-low p-8 text-left md:p-12 group">
+      <div className="relative overflow-hidden rounded-lg border border-outline-subtle/10 bg-surface-low p-5 text-left sm:p-8 md:p-12 group">
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/5 blur-3xl transition-transform duration-700 group-hover:scale-110" />
-        <form className="relative z-10 space-y-8" onSubmit={(event) => event.preventDefault()}>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <form className="relative z-10 space-y-6 sm:space-y-8" onSubmit={(event) => event.preventDefault()}>
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
             {['Your Name', 'Business Name', 'Business Type', 'Phone or Email'].map((label) => (
-              <div key={label} className="space-y-3">
-                <label className="ml-1 block font-label text-xs font-medium uppercase tracking-[0.05em] text-on-surface-dim">{label}</label>
+              <div key={label} className="space-y-2 sm:space-y-3">
+                <label className="ml-1 block font-label text-[11px] font-medium uppercase tracking-[0.05em] text-on-surface-dim sm:text-xs">{label}</label>
                 <input
-                  className="monolith-input w-full rounded-full border border-outline-subtle/10 bg-surface px-6 py-4 font-body text-[16px] leading-[24px] text-primary placeholder:text-outline/50 transition-all"
+                  className="monolith-input w-full rounded-full border border-outline-subtle/10 bg-surface px-4 py-3 font-body text-[15px] leading-[24px] text-primary placeholder:text-outline/50 transition-all sm:px-6 sm:py-4 sm:text-[16px] sm:leading-[24px]"
                   placeholder={label}
                 />
               </div>
             ))}
           </div>
-          <button className="flex w-full items-center justify-center gap-3 rounded-full bg-primary py-6 font-headline text-[24px] leading-[32px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface active:scale-[0.98]">
-            Let's Build It <ArrowRight className="h-5 w-5" />
+          <button className="flex w-full items-center justify-center gap-3 rounded-full bg-primary py-5 font-headline text-[18px] leading-[26px] tracking-[-0.01em] font-semibold text-surface transition-colors hover:bg-on-surface active:scale-[0.98] sm:py-6 sm:text-[24px] sm:leading-[32px]">
+            Let's Build It <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </form>
-        <p className="mt-8 text-center font-label text-xs font-medium text-on-surface-dim/60">
+        <p className="mt-6 text-center font-label text-[10px] font-medium text-on-surface-dim/60 sm:mt-8 sm:text-xs">
           Send the basics now. We can collect photos, domain details, menu PDFs, service lists, and brand notes after we
           know the business.
         </p>
@@ -977,11 +974,11 @@ export default function App() {
             className="absolute inset-0 h-full w-full overflow-hidden"
             style={{ backgroundColor: getTabColor(activeTab) }}
           >
-            <header className="absolute left-0 top-0 z-50 flex w-full items-center justify-between px-4 py-5 sm:px-6 lg:px-10">
-              <button onClick={() => moveToTab('Home')} className="font-logo text-2xl tracking-normal text-white cursor-pointer bg-transparent border-none">
+            <header className="absolute left-0 top-0 z-50 flex w-full items-center justify-between px-3 py-4 sm:px-4 sm:py-5 lg:px-10">
+              <button onClick={() => moveToTab('Home')} className="font-logo text-xl tracking-normal text-white cursor-pointer bg-transparent border-none sm:text-2xl">
                 SiteKeep
               </button>
-              <span className="hidden text-sm font-semibold text-zinc-400 sm:inline-flex">
+              <span className="hidden text-xs font-semibold text-zinc-400 sm:inline-flex md:text-sm">
                 Free build. $30/month care.
               </span>
             </header>
@@ -990,8 +987,8 @@ export default function App() {
         </AnimatePresence>
 
         {/* Floating Navigation Bar */}
-        <div className="fixed bottom-5 left-0 z-50 flex w-full justify-center px-3 pointer-events-none sm:bottom-8">
-          <nav className="pointer-events-auto relative flex max-w-full items-center overflow-x-auto rounded-full border border-white/10 bg-zinc-950/90 p-1.5 shadow-2xl backdrop-blur-xl">
+        <div className="fixed bottom-3 left-0 z-50 flex w-full justify-center px-2 pointer-events-none sm:bottom-5 sm:px-3 md:bottom-8">
+          <nav className="pointer-events-auto relative flex max-w-full items-center overflow-x-auto rounded-full border border-white/10 bg-zinc-950/90 p-1 shadow-2xl backdrop-blur-xl sm:p-1.5">
             {tabs.map((tab) => {
               const isActive = activeTab === tab;
               return (
@@ -999,7 +996,7 @@ export default function App() {
                   key={tab}
                   onClick={() => moveToTab(tab)}
                   className={`
-                    relative z-10 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium transition-colors duration-300 sm:px-6 cursor-pointer bg-transparent border-none
+                    relative z-10 whitespace-nowrap rounded-full px-3 py-2 text-[11px] font-medium transition-colors duration-300 sm:px-4 sm:py-2.5 sm:text-sm cursor-pointer bg-transparent border-none
                     ${isActive ? 'text-black font-semibold' : 'text-zinc-400 hover:text-zinc-200'}
                   `}
                 >

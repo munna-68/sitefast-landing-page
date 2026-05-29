@@ -206,7 +206,7 @@ const Preloader = ({ onReveal, onComplete }) => {
     <motion.div className="fixed inset-0 z-50 flex pointer-events-none">
       <div className="absolute inset-0 flex w-full h-full">
         {Array.from({ length: columnCount }).map((_, i) => (
-          <div key={i} className="relative flex-1 h-full overflow-hidden">
+          <div key={i} className="relative flex-1 h-full overflow-hidden scale-x-[1.02] origin-center">
             <motion.div
               className="absolute top-0 left-0 w-full h-[calc(50%+1px)] bg-[#f6f6f6]"
               initial={{ y: "0%" }}
@@ -548,13 +548,13 @@ const PricingSection = () => {
               <thead>
                 <tr className="border-b border-outline-subtle/10">
                   <th className="px-6 py-6 text-sm font-semibold tracking-wide text-zinc-500 w-[30%]"></th>
-                  <th className="relative px-6 py-6 text-center text-lg font-bold tracking-tight text-white w-[23.3%] font-headline">
+                  <th className="relative px-6 py-6 text-center text-xl font-bold tracking-tight text-white w-[23.3%] font-headline">
                     {/* Continuous floating border card overlay for SiteKeep column */}
                     <div className="absolute inset-x-1 -top-1 bottom-0 border-t border-l border-r border-white/10 bg-white/[0.03] rounded-t-2xl z-0 pointer-events-none" />
                     <span className="relative z-10">SiteKeep</span>
                   </th>
-                  <th className="px-6 py-6 text-center text-lg font-semibold tracking-tight text-zinc-400 w-[23.3%] font-headline">Wix/Squarespace</th>
-                  <th className="px-6 py-6 text-center text-lg font-semibold tracking-tight text-zinc-400 w-[23.3%] font-headline">Agency</th>
+                  <th className="px-6 py-6 text-center text-xl font-semibold tracking-tight text-zinc-400 w-[23.3%] font-headline">Wix/Squarespace</th>
+                  <th className="px-6 py-6 text-center text-xl font-semibold tracking-tight text-zinc-400 w-[23.3%] font-headline">Agency</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-subtle/5">
@@ -564,7 +564,7 @@ const PricingSection = () => {
                   return (
                     <tr key={row.label} className="border-b border-outline-subtle/5 last:border-b-0 group">
                       {/* Feature Label Cell */}
-                      <td className="px-6 py-6 text-zinc-300 font-medium font-body text-base align-middle">
+                      <td className="px-6 py-6 text-zinc-300 font-medium font-body text-lg align-middle">
                         <div className="flex items-center gap-3">
                           <Icon className="h-5 w-5 text-zinc-500 flex-shrink-0 group-hover:text-primary transition-colors duration-300" />
                           <span>{row.label}</span>
@@ -576,12 +576,12 @@ const PricingSection = () => {
                         <div className={`absolute inset-x-1 -top-[1px] -bottom-[1px] bg-white/[0.03] border-l border-r border-white/10 z-0 pointer-events-none
                           ${isLastRow ? 'rounded-b-2xl border-b border-white/10' : ''}
                         `} />
-                        <span className="relative z-10 text-base">{row.values[0]}</span>
+                        <span className="relative z-10 text-lg">{row.values[0]}</span>
                       </td>
                       {/* Wix/Squarespace Cell */}
-                      <td className="px-6 py-6 text-center text-zinc-400 align-middle font-body text-base">{row.values[1]}</td>
+                      <td className="px-6 py-6 text-center text-zinc-400 align-middle font-body text-lg">{row.values[1]}</td>
                       {/* Agency Cell */}
-                      <td className="px-6 py-6 text-center text-zinc-400 align-middle font-body text-base">{row.values[2]}</td>
+                      <td className="px-6 py-6 text-center text-zinc-400 align-middle font-body text-lg">{row.values[2]}</td>
                     </tr>
                   );
                 })}
@@ -594,18 +594,18 @@ const PricingSection = () => {
             <FadeIn key={title} delay={index * 0.04}>
               <div className="group h-full rounded-xl border border-outline-subtle/10 bg-surface-low p-7 transition-colors duration-300 hover:bg-surface-high">
                 <Icon className="mb-5 h-5 w-5 text-primary" />
-                <h3 className="font-headline text-[18px] md:text-[20px] font-semibold leading-[26px] md:leading-[28px] tracking-[-0.01em] text-primary mb-2">{title}</h3>
-                <p className="font-body text-[15px] leading-[24px] text-on-surface-dim">{text}</p>
+                <h3 className="font-headline text-[20px] md:text-[22px] font-semibold leading-[28px] md:leading-[30px] tracking-[-0.01em] text-primary mb-2">{title}</h3>
+                <p className="font-body text-[16px] leading-[26px] text-on-surface-dim">{text}</p>
               </div>
             </FadeIn>
           ))}
         </div>
         <FadeIn delay={0.22}>
           <div className="border-y border-outline-subtle/10 py-10 md:py-14 space-y-6">
-            <h3 className="font-headline text-[20px] md:text-[24px] font-semibold leading-[28px] md:leading-[32px] tracking-[-0.01em] text-primary max-w-lg">
+            <h3 className="font-headline text-[22px] md:text-[26px] font-semibold leading-[30px] md:leading-[34px] tracking-[-0.01em] text-primary max-w-lg">
               "This Sounds Too Good. What's the Catch?"
             </h3>
-            <p className="font-body text-[16px] leading-[26px] text-on-surface-dim max-w-2xl">
+            <p className="font-body text-[17px] leading-[28px] text-on-surface-dim max-w-2xl">
               Fair question. Here's the truth: we make our money over time, not upfront. We break even around the
               two-year mark, then it becomes worth it for us. That model only works if you're happy enough to stay — so
               we have every reason to do great work and keep you satisfied. No contracts. No pressure. If you ever want
@@ -621,8 +621,8 @@ const PricingSection = () => {
               ['No template ceiling', 'The site can grow as the business changes because the code is not boxed in.'],
             ].map(([title, text]) => (
               <div key={title} className="border-l-2 border-outline-subtle/20 pl-5 py-1">
-                <h4 className="font-headline text-[18px] md:text-[20px] font-semibold leading-[26px] md:leading-[28px] tracking-[-0.01em] text-primary mb-2">{title}</h4>
-                <p className="font-body text-[15px] leading-[24px] text-on-surface-dim">{text}</p>
+                <h4 className="font-headline text-[20px] md:text-[22px] font-semibold leading-[28px] md:leading-[30px] tracking-[-0.01em] text-primary mb-2">{title}</h4>
+                <p className="font-body text-[16px] leading-[26px] text-on-surface-dim">{text}</p>
               </div>
             ))}
           </div>
